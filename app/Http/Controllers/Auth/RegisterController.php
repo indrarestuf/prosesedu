@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Routing\Middleware\AdminRole;
+
+use App\Http\Controllers\Auth\Request;
 
 class RegisterController extends Controller
 {
@@ -37,7 +40,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
+         $this->middleware('admin');
     }
 
     /**
@@ -67,6 +71,19 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'],
         ]);
     }
+    
+    public function register(Request $request)
+{
+    $this->validator($request->all())->validate();
+
+    event(new Registered($user = $this->create($request->all())));
+
+    // $this->guard()->login($user);
+
+    return $this->registered($request, $user)
+                    ?: redirect($this->redirectPath());
+}
 }
