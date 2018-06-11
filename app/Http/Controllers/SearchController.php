@@ -58,6 +58,7 @@ class SearchController extends Controller
 		                        <td>'.$count++.'</td>
 		                        <td>'.$user->name.'</td>
 		                        <td>'.$user->gravatar.'</td>
+                                <td>'.$user->created_at->diffForHumans().'</td>
                                 <td><a href="#" target="_blank" title="SHOW" ><span class="glyphicon glyphicon-list"></span></a></td>
                             </tr> 
                     ';
