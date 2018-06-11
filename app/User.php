@@ -31,4 +31,20 @@ class User extends Authenticatable
         if ($this->role == 0) return true;
         return false;
         }
+        
+            public function isTutor(){
+        if ($this->role == 1) return true;
+        return false;
+        }
+        
+            public function isMurid(){
+        if ($this->role == 2) return true;
+        return false;
+        }
+        
+    public function getGravatarAttribute()
+{
+    $hash = md5(strtolower(trim($this->attributes['email'])));
+    return "http://www.gravatar.com/avatar/$hash?d=identicon";
+}
 }

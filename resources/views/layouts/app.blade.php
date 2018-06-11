@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -75,5 +75,20 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+$(document).ready(function(){
+   $("#search").keyup(function(){
+       var str=  $("#search").val();
+       if(str == "") {
+               $( "#txtHint" ).html("<b>Blogs information will be listed here...</b>"); 
+       }else {
+               $.get( "{{ url('admin/search?id=') }}"+str, function( data ) {
+                   $( "#txtHint" ).html( data );  
+            });
+       }
+   });  
+}); 
+</script>
 </body>
 </html>

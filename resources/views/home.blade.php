@@ -20,4 +20,6 @@
         </div>
     </div>
 </div>
+<br>
+@include('auth.partials.register-form')
 @endsection
