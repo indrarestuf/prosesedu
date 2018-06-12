@@ -77,14 +77,18 @@
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+/*global $*/
 $(document).ready(function(){
    $("#search").keyup(function(){
        var str=  $("#search").val();
        if(str == "") {
-               $( "#txtHint" ).html("<b>Blogs information will be listed here...</b>"); 
+               $( "#result" ).hide(); 
+               $( "#list" ).show(); 
        }else {
+           $( "#list" ).hide(); 
+           $( "#result" ).show(); 
                $.get( "{{ url('admin/search?id=') }}"+str, function( data ) {
-                   $( "#txtHint" ).html( data );  
+                   $( "#result" ).html( data );  
             });
        }
    });  

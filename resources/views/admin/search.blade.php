@@ -1,52 +1,18 @@
-<?php
-            if(!empty($users ))  
-{ 
-    $count = 1;
-    $outputhead = '';
-    $outputbody = '';  
-    $outputtail ='';
-
-    $outputhead .= '<div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>Body</th>
-                                <th>Created At</th>
-                                <th>Options</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                ';
-                  
-    foreach ($users as $user)    
-    {   
-    $outputbody .=  ' 
-                
-                            <tr> 
-		                        <td>'.$count++.'</td>
-		                        <td>'.$user->name.'</td>
-		                        <td>'.$user->gravatar.'</td>
-                                <td>'.$user->created_at->diffForHumans().'</td>
-                                <td><a href="#" target="_blank" title="SHOW" ><span class="glyphicon glyphicon-list"></span></a></td>
-                            </tr> 
-                    ';
-                
-    }  
-
-    $outputtail .= ' 
-                        </tbody>
-                    </table>
-                </div>';
-         
-    echo $outputhead; 
-    echo $outputbody; 
-    echo $outputtail; 
- }  
- 
- else  
- {  
-    echo 'Data Not Found';  
- } 
- ?>  
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- search box container starts  -->
+    <div class="search">
+        <h3 class="text-center title-color">Ajax Live Search Table Demo</h3>
+        <p>&nbsp;</p>
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="input-group">
+                    <span class="input-group-addon">Cari User</span>
+                    <input type="text" autocomplete="off" id="search" class="form-control input-lg" placeholder="Cari User">
+                </div>
+            </div>
+        </div>   
+    </div>  
+<!-- search box container ends  -->
+     

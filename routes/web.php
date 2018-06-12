@@ -20,7 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>'admin'], function(){
+    Route::delete('/admin/userdelete/{id}','UserController@destroy');
     Route::get('/admin/search','SearchController@load'); 
 	Route::get('/admin/user','UserController@index')->name('userlist');
-	Route::delete('/admin/userdelete/{id}','UserController@destroy');
+	
 	});
