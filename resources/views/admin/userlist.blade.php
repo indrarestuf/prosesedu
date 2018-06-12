@@ -1,6 +1,6 @@
 @foreach($users as $user)
 @if ($user->isMurid())
-<div class="media" id="listmurid">
+<div class="media">
   <img class="mr-3" src="{{ $user->gravatar }}"  width="50" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">{{ $user->name }}</h5>
@@ -16,7 +16,7 @@
 @endif
 
 @if ($user->isTutor())
-<div class="media" id="listtutor">
+<div class="media">
   <img class="mr-3" src="{{ $user->gravatar }}" width="50" style="border-radius:100px;" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">{{ $user->name }}</h5>

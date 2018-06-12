@@ -17,14 +17,16 @@ class SearchController extends Controller
              
     $outputhead = '';
     $outputbody = '';  
-
+    $token = csrf_field();
+    $delete = method_field('DELETE') ;
+    
     $outputhead .= '<center><p>Hasil pencarian <b>'.$search.'</b></p></center>';
                   
     foreach ($users as $user)
 
     {   
                if(empty($user->name )){
-                   echo 'tak ada';
+                   echo 'tak ada';;
                }  
 
     $outputbody .=  ' 
@@ -35,8 +37,8 @@ class SearchController extends Controller
     <h5 class="mt-0">'.$user->name.'</h5>
     '.$user->email.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
     </div>
-        <form method="POST" action="{{url("/admin/userdelete/'.$user->id.'")}}">
-<input type="hidden" name="_method" value="DELETE">
+<form action="/admin/userdelete/'.$user->id.'" method="POST">
+     '.$token.' '.$delete.'
 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 </form>
 </div>
