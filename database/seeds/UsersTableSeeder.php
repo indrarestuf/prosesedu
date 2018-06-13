@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'email' =>'prosesedu@gmail.com',
             'password' => bcrypt('prosesedu123'),
             'role'=>'0',
+            'username' => 'admin',
         ]);
     }
 }

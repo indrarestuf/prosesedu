@@ -88,9 +88,9 @@ $(document).ready(function(){
            $( "#list" ).hide(); 
            $( "#result" ).show(); 
                $.get( "{{ url('admin/search?id=') }}"+str, function( data ) {
-                   $( "#result" ).html( data );  
-            });
-       }
+                   $( "#result" ).html( data )
+               });
+           }
    });  
 }); 
 </script>

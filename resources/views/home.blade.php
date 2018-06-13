@@ -15,11 +15,13 @@
                     @endif
 
                     You are logged in!
+                    <a href="{{route('admin.userlist')}}"><div class="btn btn-primary">tambah user</div></a>
+                    {{Auth::user()->role}}
                 </div>
             </div>
         </div>
     </div>
 </div>
 <br>
-@include('auth.partials.register-form')
+
 @endsection

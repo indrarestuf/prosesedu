@@ -21,17 +21,12 @@ class SearchController extends Controller
     $delete = method_field('DELETE') ;
     
     $outputhead .= '<center><p>Hasil pencarian <b>'.$search.'</b></p></center>';
-                  
-    foreach ($users as $user)
-
-    {   
-               if(empty($user->name )){
-                   echo 'tak ada';;
-               }  
-
-    $outputbody .=  ' 
-                
-                           <div class="media">
+    
+    
+   if($users->isNotEmpty())   { 
+    foreach ($users as $user){
+    
+    $outputbody .=  '<div class="media">
   <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">'.$user->name.'</h5>
@@ -41,16 +36,20 @@ class SearchController extends Controller
      '.$token.' '.$delete.'
 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 </form>
+<a href="/murid/'.$user->id.'/follow"> <div class="btn btn-info btn-sm"><i class="fa fa-plus"></i></div> </a>
+<a href="/murid/'.$user->id.'/unfollow"> <div class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></div> </a>
 </div>
 <hr>
                     ';
                 
     }  
 
-         
     echo $outputhead; 
     echo $outputbody; 
  }  
- 
-
+  else {
+        echo 'data not found';
+    }
+    }
+   
 }
