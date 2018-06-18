@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class komentar extends Model
+class Komentar extends Model
 {
         
     protected $fillable = [

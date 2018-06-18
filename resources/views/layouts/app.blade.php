@@ -39,15 +39,27 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @auth
                         <!-- Authentication Links -->
+                        @if (Auth::user()->role == 'Admin')
+                         <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.userlist') }}">Dashboard</a>
+                            </li>
+                        @elseif (Auth::user()->role == 'Tutor')
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}">Dashboard</a>
+                            </li>
+                        @elseif (Auth::user()->role == 'Murid')
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}">Dashboard</a>
+                            </li>
+                        @endif
+                        @endauth
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @else
+                            @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -79,16 +91,35 @@
     <script>
 /*global $*/
 $(document).ready(function(){
-   $("#search").keyup(function(){
-       var str=  $("#search").val();
+   $("#search-murid").keyup(function(){
+       var str=  $("#search-murid").val();
        if(str == "") {
-               $( "#result" ).hide(); 
-               $( "#list" ).show(); 
+               $( "#result-murid" ).hide(); 
+               $( "#list-murid" ).show(); 
        }else {
-           $( "#list" ).hide(); 
-           $( "#result" ).show(); 
-               $.get( "{{ url('admin/search?id=') }}"+str, function( data ) {
-                   $( "#result" ).html( data )
+           $( "#list-murid" ).hide(); 
+           $( "#result-murid" ).show(); 
+               $.get( "{{ url('tutor/cari?id=') }}"+str, function( data ) {
+                   $( "#result-murid" ).html( data );
+               });
+           }
+   });  
+}); 
+</script>
+
+    <script>
+/*global $*/
+$(document).ready(function(){
+   $("#search-tutor").keyup(function(){
+       var str=  $("#search-tutor").val();
+       if(str == "") {
+               $( "#result-tutor" ).hide(); 
+               $( "#list-tutor" ).show(); 
+       }else {
+           $( "#list-tutor" ).hide(); 
+           $( "#result-tutor" ).show(); 
+               $.get( "{{ url('murid/cari?id=') }}"+str, function( data ) {
+                   $( "#result-tutor" ).html( data );
                });
            }
    });  

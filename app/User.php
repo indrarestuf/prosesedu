@@ -89,4 +89,9 @@ class User extends Authenticatable
     {
     return $this->belongsToMany(User::class, 'muridlist', 'murid_id', 'tutor_id')->withTimestamps();
     }
+    
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
 }

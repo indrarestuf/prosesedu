@@ -5,6 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-body">
+                    @if (Auth::user()->role == 'Tutor')
+                    @include('tutor.carimurid')
+                    <div  id="result-murid"></div>
+                    @endif
+                </div>
+            </div>
+            <br>
+            <div class="card">
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
@@ -15,10 +24,14 @@
                     @endif
 
                     You are logged in!
-                    {{Auth::user()->role}}
+                    <br>
+                    {{$user->name}}
+                    <br>
+                    {{$user->role}}
                     
-                    @include('admin.search')
-                    <div  id="result"></div>
+                    
+                   
+                    
                 <br>    
 @foreach($user->murids as $murid)
 <div class="media">

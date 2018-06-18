@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use Auth;
+use App\laporan;
+use App\Profile;
 
 class TutorController extends Controller
 {
@@ -68,7 +71,18 @@ class TutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $murid = Auth::user()->murids()->where('tutor_id', Auth::user()->id)->first();
+        $laporan=new Laporan();
+        $laporan->user_id = \Auth::user()->id;
+        $laporan->isi = nl2br($request->isi);
+        $laporan->murid_id = $murid->pivot->murid_id;
+        $laporan->mapel = $request->mapel;
+        $laporan->level = $request->level;
+        $laporan->kelas = $request->kelas;
+        $laporan->hadir = $request->hadir;
+        $laporan->nilai = $request->nilai;
+        $laporan->save();
+        return back()->with('status','Data Berhasil Disimpan');
     }
 
     /**
@@ -79,9 +93,8 @@ class TutorController extends Controller
      */
     public function show($username)
     {
-       $user = User::whereUsername($username)->first();
-       $murids = $user->murids;
-        $tutors = $user->tutors;
+        $user = User::whereUsername($username)->first();
+        
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
@@ -122,5 +135,54 @@ class TutorController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function profile()
+    {
+        return view('tutor.profile')->with('info' , Auth::user()->profile);  
+    }
+    public function profileUpdate(Request $request)
+    {
+        Auth::user()->profile()->update([
+        'kelas' => $request->kelas,
+        'sekolah' => $request->sekolah,
+        'ortu' => $request->ortu,
+        'note' => $request->note,
+        ]);
+       return back()->with('status','Data Berhasil Disimpan');
+    }
+    
+    public function search(Request $request){
+    $search = $request->id;
+    $users = User::where('name','LIKE',"%{$search}%")->where('role' , 2)
+                           ->get();  
+
+    $outputhead = '';
+    $outputbody = '';  
+    $token = csrf_field();
+    $delete = method_field('DELETE') ;
+    
+    $outputhead .= '<center><p>Hasil pencarian <b>'.$search.'</b></p></center>';
+    
+    
+   if($users->isNotEmpty())   { 
+    foreach ($users as $user){
+    
+    $outputbody .=  '<div class="media">
+  <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
+  <div class="media-body">
+    <h5 class="mt-0">'.$user->name.'</h5>
+    '.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
+    </div>
+</div>
+<hr>';  
+    }  
+
+    echo $outputhead; 
+    echo $outputbody; 
+ }  
+  else {
+        echo $outputhead;
+        echo 'tidak ditemukan';
+    }
     }
 }

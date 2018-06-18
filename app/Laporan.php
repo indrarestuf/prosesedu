@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class laporan extends Model
+class Laporan extends Model
 {
     protected $fillable = ['isi', 'nilai', 'kelas', 'mapel', 'level', 'hadir', 'user_id', 'murid_id'];
 

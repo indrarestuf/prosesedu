@@ -64,8 +64,7 @@ class LoginController extends Controller
         return Redirect()->route('tutor.profile', $username);
         
     }
-
-    if( Auth::user()->roles== 'Murid' ) {
+    else {
         return Redirect()->route('murid.profile', $username);
     }
 
