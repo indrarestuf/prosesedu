@@ -17,20 +17,8 @@
 <form role="form" action="{{ route('tutor.profileupdate') }}" method="POST">
     {{ csrf_field() }}
   <div class="form-group">
-    <label for="exampleFormControlInput1">Kelas</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="kelas">
-  </div>
-    <div class="form-group">
-    <label for="exampleFormControlInput1">Sekolah</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="sekolah">
-  </div>
-    <div class="form-group">
-    <label for="exampleFormControlInput1">Orang Tua</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="ortu">
-  </div>
-  <div class="form-group">
     <label for="isi">Note</label>
-    <textarea name="note" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea name="note" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ Auth::user()->profile->note }}</textarea>
   </div>
   
   <button type="submit">Kirim</button>

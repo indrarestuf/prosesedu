@@ -4,15 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-            @if (Auth::user()->role == 'Murid')
-                    @include('murid.caritutor')
-                    <div  id="result-tutor"></div>
-                    @endif
-                    </div>
-                    </div>
-                    <br>
+            @include('murid.menu')
+            <br>
             <div class="card">
                 <div class="card-header">Dashboard</div>
 

@@ -39,20 +39,7 @@ class User extends Authenticatable
         return $this->hasMany(Laporan::class, 'sent_to_id');
     }
     
-    public function isAdmin(){
-        if ($this->role == 0) return true;
-        return false;
-        }
-        
-            public function isTutor(){
-        if ($this->role == 1) return true;
-        return false;
-        }
-        
-            public function isMurid(){
-        if ($this->role == 2) return true;
-        return false;
-        }
+   
         
     public function getGravatarAttribute()
     {

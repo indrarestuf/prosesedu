@@ -143,9 +143,6 @@ class TutorController extends Controller
     public function profileUpdate(Request $request)
     {
         Auth::user()->profile()->update([
-        'kelas' => $request->kelas,
-        'sekolah' => $request->sekolah,
-        'ortu' => $request->ortu,
         'note' => $request->note,
         ]);
        return back()->with('status','Data Berhasil Disimpan');

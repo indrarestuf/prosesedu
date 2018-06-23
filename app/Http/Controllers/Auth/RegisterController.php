@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Profile;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Routing\Middleware\AdminRole;
-
-use App\Events\registerProfile;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -80,8 +75,7 @@ class RegisterController extends Controller
             'role' => $data['role'],
             'username' => $data['username'],
         ]);
-        event(new createprofile($user));
-        
+         event(new createprofile($user));
     }
     
         /**
@@ -95,6 +89,7 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
+
         // $this->guard()->login($user);
 
         return $this->registered($request, $user)

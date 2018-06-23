@@ -4,15 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    @if (Auth::user()->role == 'Tutor')
-                    @include('tutor.carimurid')
-                    <div  id="result-murid"></div>
-                    @endif
-                </div>
-            </div>
+            @include('murid.menu')
             <br>
+            
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -28,6 +22,8 @@
                     {{$user->name}}
                     <br>
                     {{$user->role}}
+                    <br>
+                    {{$user->profile->note }}
                     
                     
                    

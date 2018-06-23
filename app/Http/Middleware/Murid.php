@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth; 
 
-class AdminRole
+class Murid
 {
     /**
      * Handle an incoming request.
@@ -15,13 +16,11 @@ class AdminRole
      */
     public function handle($request, Closure $next)
     {
-      if (Auth::user() &&  Auth::user()->role == 2) {
+       if (Auth::user()->role == 'Murid') {
             return $next($request);
      }
 
-    return abort(404);
-    }
-
-    return redirect('/')->with('msg','ga boleh');
+    return  abort(404);
+        
     }
 }

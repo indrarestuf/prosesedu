@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use Auth;
 use App\User;
+use App\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use App\Events\registerProfile;
 
 class UserController extends Controller
 {
@@ -26,9 +30,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     
+    public function tambah()
     {
-        //
+        return view('admin.addform')->with('info' , Auth::user()->profile); 
+    }
+    public function create(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->username = $request->username;
+        $user->save();
+        event(new registerProfile($user));
+        return back()->with('status','Data Berhasil Disimpan');
     }
 
     /**

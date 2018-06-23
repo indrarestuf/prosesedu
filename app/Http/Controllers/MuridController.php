@@ -60,7 +60,7 @@ class MuridController extends Controller
             return view('murid.show' , compact('user', 'tutors' ));
         }
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -128,5 +128,21 @@ class MuridController extends Controller
         echo $outputhead;
         echo 'tidak ditemukan';
     }
+    }
+    
+    public function profile()
+    {
+        return view('murid.profile')->with('info' , Auth::user()->profile);  
+    }
+    
+    public function profileUpdate(Request $request)
+    {
+        Auth::user()->profile()->update([
+        'kelas' => $request->kelas,
+        'sekolah' => $request->sekolah,
+        'ortu' => $request->ortu,
+        'note' => $request->note,
+        ]);
+       return back()->with('status','Data Berhasil Disimpan');
     }
 }
