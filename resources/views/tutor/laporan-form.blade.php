@@ -1,50 +1,28 @@
-<form role="form" action="{{ route('tutor.laporan') }}" method="POST">
+<form role="form" action="{{ url('tutor/'.$user->username.'/laporan') }}" method="POST">
     {{ csrf_field() }}
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Nilai</label>
-    <input type="number" class="form-control" id="exampleFormControlInput1" name="nilai">
-  </div>
-  <div class="custom-control custom-radio">
-  <input type="radio" id="customRadio1" name="hadir" class="custom-control-input" value="1">
-  <label class="custom-control-label" for="customRadio1">Hadir</label>
-</div>
-<div class="custom-control custom-radio">
-  <input type="radio" id="customRadio2" name="hadir" class="custom-control-input" value="0">
-  <label class="custom-control-label" for="customRadio2">Tidak Hadir</label>
-</div>
  
+  <div class="input-group mb-3">
+    <div class="btn-group btn-group-toggle justify-content-between" data-toggle="buttons">
+  <label class="btn btn-outline-danger ">
+    <input type="radio" name="hadir" value="0" id="option1" autocomplete="off" checked> Absen
+  </label>
+  <label class="btn btn-outline-info" style="border-radius:0">
+    <input type="radio" name="hadir" value="1"  id="option2" autocomplete="off" > Hadir
+  </label>
+</div>
+  <input type="text" class="form-control" name="nilai" placeholder="Ketik Nilai">
+   <input type="text" class="form-control" name="mapel" placeholder="Ketik mata pelajaran">
+        <select class="form-control custom-select" id="" name="kelas">
+      <option selected disableds>Jenis Kelas</option>
+      <option value="1">Kelas Regular</option>
+      <option value="2">Kelas Private</option>
+      <option value="3">Kelas Intensif</option>
+      <option value="4">Kelas Master</option>
+      <option value="5">Kelas Olimpiade</option>
+    </select>
+</div>
   <div class="form-group">
-    <label for="kelas">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="kelas">
-      <option value="1">1</option>
-      <option value="1">2</option>
-      <option value="1">3</option>
-      <option value="1">4</option>
-    </select>
+    <textarea name="isi" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Catatan"></textarea>
   </div>
-   <div class="form-group">
-    <label for="level">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="level">
-      <option value="1">1</option>
-      <option value="1" >2</option>
-      <option value="1">3</option>
-      <option value="1">4</option>
-      <option value="1">5</option>
-    </select>
-  </div>
-    <div class="form-group">
-    <label for="mapel">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="mapel">
-      <option value="1">1</option>
-      <option value="1">2</option>
-      <option value="1">3</option>
-      <option value="1">4</option>
-      <option value="1">5</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="isi">Example textarea</label>
-    <textarea name="isi" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-  <button type="submit">Kirim</button>
+  <button class="btn btn-outline-primary" type="submit">Kirim</button>
 </form>

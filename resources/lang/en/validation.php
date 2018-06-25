@@ -54,6 +54,7 @@ return [
         'string'  => 'The :attribute must be greater than or equal :value characters.',
         'array'   => 'The :attribute must have :value items or more.',
     ],
+    'hash'        => 'The :attribute doesn\'t match current password.',
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',

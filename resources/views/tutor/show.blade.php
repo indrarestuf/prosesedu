@@ -16,9 +16,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
-                    <br>
+                    <img class="mr-3" src="{{ $user->gravatar }}"  width="50" alt="Generic placeholder image">
+                    @include('tutor.rating')
                     {{$user->name}}
                     <br>
                     {{$user->role}}

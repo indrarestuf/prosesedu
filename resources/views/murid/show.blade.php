@@ -6,16 +6,26 @@
         <div class="col-md-8">
             @include('murid.menu')
             <br>
+            
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
+                 @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
+                <div class="card-body">
+            @if ($tutors != Null && $tutors->pivot->tutor_id == Auth::user()->id)
+                    @include('tutor.laporan-form')
+                    @else
+                    <p>Add aja</p>
+                    <a href="{{route('follow', $user->id)}}"> <div class="btn btn-info btn-sm"><i class="fa fa-plus"></i></div> </a>
+                    @endif
+                    </div></div>
+                    <br>
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
+                <div class="card-body">
                     You are logged in!
                     <br>
                     {{$user->name}}
@@ -25,11 +35,8 @@
                     
                     
                     
-                    @if ($tutors != Null && $tutors->pivot->tutor_id == Auth::user()->id)
-                    @include('tutor.laporan-form')
-                    @else
-                    <p>Add aja</p>
-                    @endif
+                    
+                    
                     
                 <br>    
                 

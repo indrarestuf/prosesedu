@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\User;
 use Auth;
-use App\laporan;
+use App\Laporan;
 use App\Profile;
+use Hash;
+use Validator;
+use Illuminate\Support\Facades\Input;
 
 class TutorController extends Controller
 {
@@ -69,13 +71,13 @@ class TutorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($username,  Request $request)
     {
-        $murid = Auth::user()->murids()->where('tutor_id', Auth::user()->id)->first();
-        $laporan=new Laporan();
+        $user = User::where('username' , $username)->first();
+        $laporan=new Laporan;
         $laporan->user_id = \Auth::user()->id;
         $laporan->isi = nl2br($request->isi);
-        $laporan->murid_id = $murid->pivot->murid_id;
+        $laporan->murid_id = $user->id;
         $laporan->mapel = $request->mapel;
         $laporan->level = $request->level;
         $laporan->kelas = $request->kelas;
@@ -94,7 +96,6 @@ class TutorController extends Controller
     public function show($username)
     {
         $user = User::whereUsername($username)->first();
-        
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
@@ -182,4 +183,5 @@ class TutorController extends Controller
         echo 'tidak ditemukan';
     }
     }
+   
 }

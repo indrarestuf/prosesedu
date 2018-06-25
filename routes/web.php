@@ -32,11 +32,13 @@ Route::name('admin.')->group(function () {
 
 Route::name('tutor.')->group(function () {
     Route::group(['middleware'=>'tutor'], function(){
-        Route::post('/tutor/laporan/kirim', 'TutorController@store')->name('laporan');
         Route::get('/tutor/cari', 'TutorController@search')->name('cari');
         Route::get('/tutor/profile/edit', 'TutorController@profile')->name('profile');
         Route::post('/tutor/profile/update', 'TutorController@profileUpdate')->name('profileupdate');
         Route::get('tutor/telusuri/murid' , function () { return view('tutor.telusuri');});
+        Route::get('tutor/kata-sandi' , 'KatasandiController@katasandi')->name('katasandi');
+        Route::post('tutor/kata-sandi/ganti' , 'KatasandiController@katasandiGanti')->name('katasandiganti');
+        Route::post('/tutor/{username}/laporan', 'TutorController@store')->name('laporan');
     });
     
     Route::group(['middleware'=>'auth'], function(){

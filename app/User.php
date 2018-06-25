@@ -27,19 +27,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
-     // A user can send a laporan
-    public function sent()
+  public function laporans()
     {
-        return $this->hasMany(Laporan::class, 'sender_id');
+        return $this->belongsToMany('App\Laporan')->withTimestamps();
     }
-
-    // A user can also receive a laporan
-    public function received()
-    {
-        return $this->hasMany(Laporan::class, 'sent_to_id');
-    }
-    
-   
         
     public function getGravatarAttribute()
     {

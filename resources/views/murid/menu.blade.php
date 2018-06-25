@@ -22,7 +22,7 @@
     <a class="nav-link {{ Request::path() == 'tutor/profile/edit' ? 'active' : '' }}" href="{{url('tutor/profile/edit')}}">Ubah Profile</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Ubah Password</a>
+    <a class="nav-link {{ Request::path() == 'tutor/kata-sandi' ? 'active' : '' }}"href="{{url('tutor/kata-sandi')}}">Ubah Password</a>
   </li>
   <li class="nav-item">
     <a class="nav-link {{ Request::path() == 'tutor/telusuri/murid' ? 'active' : '' }}" href="{{url('tutor/telusuri/murid')}}">Cari Tutor</a>
