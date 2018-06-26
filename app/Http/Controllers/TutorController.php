@@ -80,7 +80,7 @@ class TutorController extends Controller
         $laporan->murid_id = $user->id;
         $laporan->mapel = $request->mapel;
         $laporan->level = $request->level;
-        $laporan->kelas = $request->kelas;
+        $laporan->kelas = $user->kelas;
         $laporan->hadir = $request->hadir;
         $laporan->nilai = $request->nilai;
         $laporan->save();
@@ -100,7 +100,7 @@ class TutorController extends Controller
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'murids'. 'tutors'));
+            return view('tutor.show' , compact('user' , 'laporans'));
         }
     }
 

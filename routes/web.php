@@ -62,4 +62,5 @@ Route::name('murid.')->group(function () {
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/murid/{id}/follow', 'TutorController@followUser')->name('follow');
     Route::get('/murid/{id}/unfollow', 'TutorController@unFollowUser')->name('unfollow');
+    Route::post('/laporan/{id}/komentar', 'UserController@komentar')->name('komentar');
 });

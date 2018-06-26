@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Laporan;
+use App\Komentar;
+
 use Auth;
 
 class MuridController extends Controller
@@ -50,6 +52,9 @@ class MuridController extends Controller
     public function show($username)
     {
       $user = User::whereUsername($username)->first();
+      $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(3)->get();
+      $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
+ 
         $murids = $user->murids;
         $tutors = $user->tutors()->where('tutor_id', Auth::user()->id)->first();
      
@@ -57,7 +62,7 @@ class MuridController extends Controller
             abort(404);
         }
         else {
-            return view('murid.show' , compact('user', 'tutors' ));
+            return view('murid.show' , compact('user', 'tutors','komentars' , 'laporans' ));
         }
     }
     

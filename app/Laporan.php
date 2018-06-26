@@ -12,4 +12,9 @@ class Laporan extends Model
     {
         return $this->belongsTo('App\User');
     }
+    
+    public function komentars()
+    {
+        return $this->hasMany('App\Komentar');
+    }
 }

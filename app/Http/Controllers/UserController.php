@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Profile;
+use App\Laporan;
+use App\Komentar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -54,9 +56,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function komentar($id,  Request $request)
     {
-        //
+        $laporans = Laporan::findOrFail($id);
+        $komentar=new Komentar;
+        $komentar->user_id = \Auth::user()->id;
+        $komentar->isi = nl2br($request->isi);
+        $komentar->laporan_id = $laporans->id;
+        $komentar->save();
+        return back()->with('status','Data Berhasil Disimpan');
     }
 
     /**

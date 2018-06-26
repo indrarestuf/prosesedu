@@ -31,6 +31,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Laporan')->withTimestamps();
     }
+    public function komentars()
+    {
+        return $this->belongsToMany('App\Komentar')->withTimestamps();
+    }
         
     public function getGravatarAttribute()
     {
