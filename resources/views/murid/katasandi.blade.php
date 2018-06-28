@@ -14,7 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
- <form method="POST" action="{{ route('tutor.katasandiganti') }}">
+ <form method="POST" action="{{ route('murid.katasandiganti') }}">
                         @csrf
                         
                          <div class="form-group row">

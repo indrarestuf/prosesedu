@@ -35,7 +35,7 @@ Route::name('tutor.')->group(function () {
         Route::get('/tutor/cari', 'TutorController@search')->name('cari');
         Route::get('/tutor/profile/edit', 'TutorController@profile')->name('profile');
         Route::post('/tutor/profile/update', 'TutorController@profileUpdate')->name('profileupdate');
-        Route::get('tutor/telusuri/murid' , function () { return view('tutor.telusuri');});
+        Route::get('tutor/telusuri/murid' , 'TutorController@telusuri')->name('telusuri');
         Route::get('tutor/kata-sandi' , 'KatasandiController@katasandi')->name('katasandi');
         Route::post('tutor/kata-sandi/ganti' , 'KatasandiController@katasandiGanti')->name('katasandiganti');
         Route::post('/tutor/{username}/laporan', 'TutorController@store')->name('laporan');
@@ -51,11 +51,14 @@ Route::name('murid.')->group(function () {
         Route::get('/murid/cari', 'MuridController@search')->name('cari');
         Route::get('/murid/profile/edit', 'MuridController@profile')->name('profile');
         Route::post('/murid/profile/update', 'MuridController@profileUpdate')->name('profileupdate');
-        Route::get('murid/telusuri/tutor' , function () { return view('murid.telusuri');});
+        Route::get('murid/telusuri/tutor' , 'MuridController@telusuri')->name('telusuri');
+        Route::get('murid/kata-sandi' , 'KatasandiController@katasandi')->name('katasandi');
+        Route::post('murid/kata-sandi/ganti' , 'KatasandiController@katasandiGanti')->name('katasandiganti');
     });
     
     Route::group(['middleware'=>'auth'], function(){
         Route::get('/murid/{username}', 'MuridController@show')->name('profile');
+        Route::post('/rate','RateController@rate')->name('rating');
     });
 });
 

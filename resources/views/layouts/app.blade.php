@@ -12,6 +12,7 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/style.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -63,11 +64,19 @@
                             </li>
                             @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre aria-labelledby="dropdownMenuOffset">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                     @if(Auth::user()->role == 'Tutor')
+                                     <a class="dropdown-item" href="{{url('tutor/profile/edit')}}">Ubah Profile</a>
+                                     <a class="dropdown-item" href="{{url('tutor/kata-sandi')}}">Ubah Password</a>
+                                    @elseif(Auth::user()->role == 'Murid')
+                                     <a class="dropdown-item" href="{{url('murid/profile/edit')}}">Ubah Profile</a>
+                                     <a class="dropdown-item"href="{{url('murid/kata-sandi')}}">Ubah Password</a>
+                                    @endif
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -85,7 +94,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
@@ -126,6 +135,25 @@ $(document).ready(function(){
            }
    });  
 }); 
+</script>
+
+<script>
+	/* global $ */
+	function rateIt(userId,elem) {
+	var csrfToken = '{{csrf_token()}}';
+	var point = $('input[type="radio"]:checked').val();
+	var ratesCount=parseInt($('#'+userId+"-count").text());
+	$.post("{{route('murid.rating')}}", {userId:userId,_token:csrfToken,point:point}, function(data){
+		console.log(data);
+
+               if(data.message==='rated'){
+        
+                   $('#'+userId+"-count").text(ratesCount+1);
+               }else{
+                   $('#'+userId+"-count").text(ratesCount-1);
+               }
+	});
+	};
 </script>
 </body>
 </html>

@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\RateableTrait;
 
 class User extends Authenticatable
 {
+    use RateableTrait;
     use Notifiable;
 
     /**

@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use App\Laporan;
 use App\Profile;
+use App\Rate;
 use Hash;
 use Validator;
 use Illuminate\Support\Facades\Input;
@@ -79,12 +80,12 @@ class TutorController extends Controller
         $laporan->isi = nl2br($request->isi);
         $laporan->murid_id = $user->id;
         $laporan->mapel = $request->mapel;
-        $laporan->level = $request->level;
-        $laporan->kelas = $user->kelas;
+        $laporan->level = $user->kelas;
+        $laporan->kelas = $request->kelas;
         $laporan->hadir = $request->hadir;
         $laporan->nilai = $request->nilai;
         $laporan->save();
-        return back()->with('status','Data Berhasil Disimpan');
+        return back()->with('status','Laporan Terkirim');
     }
 
     /**
@@ -96,11 +97,15 @@ class TutorController extends Controller
     public function show($username)
     {
         $user = User::whereUsername($username)->first();
+        $rate = Rate::where('user_id', Auth::user()->id)->first();
+        $avgrate = number_format(Rate::where('rateable_id', $user->id)->avg('point') ,1, '.', ',');   
+        
+        
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'laporans'));
+            return view('tutor.show' , compact('user' , 'avgrate', 'rate'));
         }
     }
 
@@ -139,7 +144,8 @@ class TutorController extends Controller
     }
     public function profile()
     {
-        return view('tutor.profile')->with('info' , Auth::user()->profile);  
+        $user = Auth::user();
+        return view('tutor.profile', compact('user' ))->with('info' , Auth::user()->profile);  
     }
     public function profileUpdate(Request $request)
     {
@@ -165,13 +171,13 @@ class TutorController extends Controller
    if($users->isNotEmpty())   { 
     foreach ($users as $user){
     
-    $outputbody .=  '<div class="media">
+    $outputbody .=  '<a href="/murid/'.$user->username.'"><div class="media">
   <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">'.$user->name.'</h5>
     '.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
     </div>
-</div>
+</div></a>
 <hr>';  
     }  
 
@@ -183,5 +189,9 @@ class TutorController extends Controller
         echo 'tidak ditemukan';
     }
     }
-   
+ 
+ public function telusuri(){
+        $user = Auth::user();
+        return view('tutor.telusuri', compact('user'));
+    }  
 }

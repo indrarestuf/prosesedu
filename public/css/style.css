@@ -37,3 +37,138 @@
   position: relative;
 }
 
+.card{
+  border:none;
+  -webkit-box-shadow: 0 5px 6px -3px #d2dae2;
+       -moz-box-shadow: 0 5px 6px -3px #d2dae2;
+            box-shadow: 0 5px 6px -3px #d2dae2;
+  margin-bottom:5px;
+}
+.card h5{
+  text-decoration: none;
+}
+.card a{
+  text-decoration: none;
+  color:inherit;
+}
+.card a:hover {
+ color:red;
+}
+@media only screen and (max-width: 600px) {
+    .container{
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+.jumbotron{
+  background-color: #182C61;
+  height: 150px;
+  position:relative;
+  margin-bottom:80px;
+}
+
+.profile-wrapper{
+ position:absolute;
+ left: 50%;
+ top: 100%;
+  transform: translate(-50%, -50%);
+}
+.profile-pic {
+	position: relative;
+}
+.avatar{
+  background-color:#ffffff;
+  width:100px;
+  height:100px;
+  border-radius:50px;
+  position: relative;
+    border: solid 3px #fff;
+/*       #1dd1a1; */
+/*   padding: 3px; */
+  background-clip: content-box; /* support: IE9+ */
+  background-color: tranparent;
+}
+.badge {
+  color:#fff;
+  font-size:15px;
+  padding:5px;
+	position: absolute;
+	left:65px;
+	top: 70px;
+  background-color:#1dd1a1;
+  height:30px;
+  width:30px;
+  border-radius:50px;
+  border:3px solid #fff
+}
+
+.profile-info p{
+  margin-top:15px;
+  color:#fff;
+  font-size:15px;
+  line-height:0.5;
+  text-align:center;
+}
+
+.chip {
+    display: inline-block;
+    padding: 5px 15px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 25px;
+}
+
+.kelas{
+  background-color: #8e44ad;
+  color:#fff;
+}
+.hadir{
+  background-color: #1abc9c;
+  color:#fff;
+}
+.absen{
+  background-color: #e74c3c;
+  color:#fff;
+}
+.level{
+  background-color:#1abc9c;
+  color:#fff;
+}
+.mapel{
+  background-color: #f39c12;
+  color:#fff;
+}
+
+* { box-sizing: border-box; }
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 110%;
+  left: 45%;
+  right:28%;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}

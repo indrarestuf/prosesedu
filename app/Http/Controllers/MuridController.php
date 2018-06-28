@@ -51,18 +51,21 @@ class MuridController extends Controller
      */
     public function show($username)
     {
-      $user = User::whereUsername($username)->first();
-      $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(3)->get();
-      $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
- 
-        $murids = $user->murids;
-        $tutors = $user->tutors()->where('tutor_id', Auth::user()->id)->first();
-     
+        $user = User::whereUsername($username)->first();
+        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(3)->get();
+        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
+        $tutor = $user->tutors()->where('tutor_id','=' , Auth::user()->id)->pluck('tutor_id')->first();
+        // dd($tutor);
+        // $murids = $user->murids;
+        // if($user->tutors != Null){
+        // $tutors = $user->tutors()->where('tutor_id', Auth::user()->id)->first();
+        // }
+        
         if (empty($user) || $user->role != 'Murid') {
             abort(404);
         }
         else {
-            return view('murid.show' , compact('user', 'tutors','komentars' , 'laporans' ));
+            return view('murid.show' , compact('user', 'tutor','komentars' , 'laporans' ));
         }
     }
     
@@ -99,7 +102,10 @@ class MuridController extends Controller
     {
         //
     }
-    
+    public function telusuri(){
+        $user = Auth::user();
+        return view('murid.telusuri', compact('user'));
+    }
     public function search(Request $request){
     $search = $request->id;
     $users = User::where('name','LIKE',"%{$search}%")->where('role' , 1)
@@ -111,18 +117,19 @@ class MuridController extends Controller
     $delete = method_field('DELETE') ;
     
     $outputhead .= '<center><p>Hasil pencarian <b>'.$search.'</b></p></center>';
+    $outputnoresult .= '<center><p>tidak ditemukan</p></center>';
     
     
    if($users->isNotEmpty())   { 
     foreach ($users as $user){
     
-    $outputbody .=  '<div class="media">
+    $outputbody .=  '<a href="tutor/'.$username.'"><div class="media">
   <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">'.$user->name.'</h5>
     '.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
     </div>
-</div>
+</div></a>
 <hr>';  
     }  
 
@@ -131,13 +138,14 @@ class MuridController extends Controller
  }  
   else {
         echo $outputhead;
-        echo 'tidak ditemukan';
+        echo $outputnoresult;
     }
     }
     
     public function profile()
     {
-        return view('murid.profile')->with('info' , Auth::user()->profile);  
+        $user = Auth::user();
+        return view('murid.profile', compact('user'))->with('info' , Auth::user()->profile);  
     }
     
     public function profileUpdate(Request $request)

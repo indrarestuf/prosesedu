@@ -10,9 +10,16 @@ use Validator;
 
 class KatasandiController extends Controller
 {
-     public function katasandi()
+    public function katasandi()
     {
-        return view('tutor.katasandi')->with('info' , Auth::user()->id);  
+        $user = Auth::user();
+        if($user->role == 'Tutor'){
+        return view('tutor.katasandi' , compact('user'))->with('info' , Auth::user()->id);    
+        }
+        else{
+        return view('murid.katasandi' , compact('user'))->with('info' , Auth::user()->id);  
+        }
+        
     }
     
     public function katasandiGanti()
