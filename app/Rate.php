@@ -10,9 +10,7 @@ class Rate extends Model
 		'user_id', 'rateable_type', 'rateable_id'
 	];
 
-protected $casts = [
-    'my_decimal' => 'float',
-];
+
     public function rateable(){
       return $this->morphTo();
     }

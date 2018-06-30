@@ -137,23 +137,6 @@ $(document).ready(function(){
 }); 
 </script>
 
-<script>
-	/* global $ */
-	function rateIt(userId,elem) {
-	var csrfToken = '{{csrf_token()}}';
-	var point = $('input[type="radio"]:checked').val();
-	var ratesCount=parseInt($('#'+userId+"-count").text());
-	$.post("{{route('murid.rating')}}", {userId:userId,_token:csrfToken,point:point}, function(data){
-		console.log(data);
 
-               if(data.message==='rated'){
-        
-                   $('#'+userId+"-count").text(ratesCount+1);
-               }else{
-                   $('#'+userId+"-count").text(ratesCount-1);
-               }
-	});
-	};
-</script>
 </body>
 </html>

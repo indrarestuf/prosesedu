@@ -98,14 +98,15 @@ class TutorController extends Controller
     {
         $user = User::whereUsername($username)->first();
         $rate = Rate::where('user_id', Auth::user()->id)->first();
-        $avgrate = number_format(Rate::where('rateable_id', $user->id)->avg('point') ,1, '.', ',');   
+        $avgrate = number_format(Rate::where('rateable_id', $user->id)->avg('point') ,1, ',', '.');
+        $oldrate = floatval(str_replace(',', '.', $avgrate));
         
         
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'avgrate', 'rate'));
+            return view('tutor.show' , compact('user' , 'avgrate', 'rate', 'oldrate'));
         }
     }
 

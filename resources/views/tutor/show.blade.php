@@ -45,4 +45,19 @@
     </div>
 </div>
 <br>
+<script>
+	/* global $ */
+	function rateIt(userId,elem) {
+	var csrfToken = '{{csrf_token()}}';
+	var point = parseFloat($('input[type="radio"]:checked').val());
+	var avg = parseFloat('{{$oldrate}}');
+	var avgcount = parseFloat(point) + parseFloat(avg);
+	var newavg = avgcount/2;
+	
+               $('#ratecount').text(newavg.toFixed(1));
+	$.post("{{route('murid.rating')}}", {userId:userId,_token:csrfToken,point:point}, function(data){
+		console.log(point, avg, avgcount , newavg);
+	});
+	};
+</script>
 @endsection
