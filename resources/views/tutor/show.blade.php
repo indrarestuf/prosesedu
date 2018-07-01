@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 @include('layouts.profile')
-<div class="container">
+ <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @include('layouts.menu')
+
             <br>
             
             <div class="card">
@@ -50,7 +50,7 @@
 	function rateIt(userId,elem) {
 	var csrfToken = '{{csrf_token()}}';
 	var point = parseFloat($('input[type="radio"]:checked').val());
-	var avg = parseFloat('{{$oldrate}}');
+	var avg = parseFloat('{{$avgrate}}');
 	var avgcount = parseFloat(point) + parseFloat(avg);
 	var newavg = avgcount/2;
 	

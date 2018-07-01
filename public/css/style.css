@@ -62,7 +62,7 @@
 }
 .jumbotron{
   background-color: #182C61;
-  height: 150px;
+  height: 80px;
   position:relative;
   margin-bottom:80px;
 }
@@ -112,9 +112,10 @@
 
 .chip {
     display: inline-block;
-    padding: 5px 15px;
-    height: 30px;
-    font-size: 12px;
+    padding: 3px 10px;
+    height: 20px;
+    font-size:80%;
+    margin-right: 3px;
     border-radius: 25px;
 }
 
@@ -136,6 +137,10 @@
 }
 .mapel{
   background-color: #f39c12;
+  color:#fff;
+}
+.waktu{
+  background-color: #130f40;
   color:#fff;
 }
 
