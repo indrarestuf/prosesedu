@@ -59,12 +59,20 @@ class UserController extends Controller
     public function komentar($id,  Request $request)
     {
         $laporans = Laporan::findOrFail($id);
-        $komentar=new Komentar;
         $komentar->user_id = \Auth::user()->id;
         $komentar->isi = nl2br($request->isi);
         $komentar->laporan_id = $laporans->id;
         $komentar->save();
         return back()->with('status','Data Berhasil Disimpan');
+    }
+    
+    
+    public function hapuskomentar($id)
+    {
+        $komentar = Komentar::findOrFail($id);
+        $komentar->delete();
+        return response()->json(['status'=>'success','message'=>'deleted']);
+        
     }
 
     /**

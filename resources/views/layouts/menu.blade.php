@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="background-color:rgb(19, 15, 64, 0.9)">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow" style="background-color:rgb(19, 15, 64, 0.9); color:#fff !important">
     <div class="container">
   <a class="navbar-brand" href="{{ url('/') }}">
+      
+                     <img src="{{asset('img/logo.png')}}" width="30" height="30" alt="">
                     {{ config('app.name', 'Laravel') }}
                 </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,15 +15,15 @@
     <ul class="navbar-nav justify-content-end">
                @if (Auth::user()->role == 'Admin')
       <li class="nav-item active">
-       <a class="nav-link" href="{{ route('admin.userlist') }}">Dashboard</a>
+       <a class="nav-link" href="{{ route('admin.userlist') }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp;{{Auth::user()->name}}</a>
       </li>
       @elseif (Auth::user()->role == 'Tutor')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}">Dashboard</a>
+        <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp; {{Auth::user()->name}}</a>
       </li>
       @elseif (Auth::user()->role == 'Murid')
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}">Dashboard</a>
+                                <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30"> &nbsp;&nbsp;{{Auth::user()->name}}</a>
                             </li>
        @endif
       <li class="nav-item">

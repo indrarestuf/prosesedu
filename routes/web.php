@@ -39,6 +39,7 @@ Route::name('tutor.')->group(function () {
         Route::get('tutor/kata-sandi' , 'KatasandiController@katasandi')->name('katasandi');
         Route::post('tutor/kata-sandi/ganti' , 'KatasandiController@katasandiGanti')->name('katasandiganti');
         Route::post('/tutor/{username}/laporan', 'TutorController@store')->name('laporan');
+        Route::delete('/laporan/delete/{id}','TutorController@destroy')->name('laporandelete');
     });
     
     Route::group(['middleware'=>'auth'], function(){
@@ -63,6 +64,7 @@ Route::name('murid.')->group(function () {
 });
 
 Route::group(['middleware'=>'auth'], function(){
+    Route::post('/komentar/delete/{id}','UserController@hapuskomentar')->name('komentardelete');
     Route::get('/murid/{id}/follow', 'TutorController@followUser')->name('follow');
     Route::get('/murid/{id}/unfollow', 'TutorController@unFollowUser')->name('unfollow');
     Route::post('/laporan/{id}/komentar', 'UserController@komentar')->name('komentar');

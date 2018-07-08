@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Laporan;
+use App\Komentar;
 use App\Profile;
 use App\Rate;
 use Hash;
@@ -31,18 +32,18 @@ class TutorController extends Controller
     }
 
     $user->tutors()->attach(auth()->user()->id);
-    return redirect()->back()->with('status', 'Successfully followed the user.');
+    return redirect()->back()->with('status', 'Berhasil, Siswa telah ditambahkan.');
     }
     
     public function unFollowUser($id){
         $user = User::find($id);
 
         if(! $user) {
-         return redirect()->back()->with('error', 'User does not exist.'); 
+         return redirect()->back()->with('error', 'Siswa tidak terdaftar.'); 
         }
         
         $user->tutors()->detach(auth()->user()->id);
-        return redirect()->back()->with('status', 'Successfully unfollowed the user.');
+        return redirect()->back()->with('status', 'Berhasil, Siswa telah dihapus.');
     }
 
 
@@ -97,17 +98,17 @@ class TutorController extends Controller
     public function show($username)
     {
         $user = User::whereUsername($username)->first();
+        $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
         $rate = Rate::where('user_id', Auth::user()->id)->first();
         $avgrate = round(Rate::where('rateable_id', $user->id)->avg('point'),1);
         $oldrate =  number_format($avgrate, 1, '.', '');
-        
-        
-        
+
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'avgrate', 'rate', 'oldrate'));
+            return view('tutor.show' , compact('user' , 'avgrate', 'rate', 'oldrate' , 'laporans' , 'komentars'));
         }
     }
 
@@ -142,7 +143,9 @@ class TutorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $laporan = Laporan::findOrFail($id);
+        $laporan->delete();
+        return back()->with('status' , 'Laporan telah dihapus');
     }
     public function profile()
     {

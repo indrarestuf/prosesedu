@@ -1,13 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
-@include('layouts.profile')
+@include('layouts.menu')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @include('layouts.menu')
-            <br>
-            <div class="card">
-                <div class="card-body">
+    <div class="row justify-content-center mt-0">
+        <div class="col-lg-3 pr-1 pl-1 pb-0  ">
+        @include('layouts.profile')
+        @include('layouts.listuser')
+        </div>
+        
+        <div class="col-lg-6 pr-1 pl-1 pb-1 pt-0">
+                    @if (session('status'))
+                        <div class="alert alert-success mb-0">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                     <div class="my-1 p-3 bg-white rounded shadow"> 
+           <!-- search box container ends  -->
                     @include('tutor.carimurid')
                     <div  id="result-murid"></div>
                     <br>
@@ -23,9 +31,12 @@
 </div>
 <hr>
 @endforeach
-
-                </div>
-            </div>
-            <br>
-                    
+</div>
+</div>
+        </div>
+        <div class="col-lg-3 pr-1 pl-1 pb-1">
+        @include('layouts.nilai')
+        </div>
+    </div>
+</div>   
 @endsection

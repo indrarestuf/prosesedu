@@ -52,7 +52,7 @@ class MuridController extends Controller
     public function show($username)
     {
         $user = User::whereUsername($username)->first();
-        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(3)->get();
+        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
         $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
         $tutor = $user->tutors()->where('tutor_id','=' , Auth::user()->id)->pluck('tutor_id')->first();
         // dd($tutor);
@@ -102,10 +102,7 @@ class MuridController extends Controller
     {
         //
     }
-    public function telusuri(){
-        $user = Auth::user();
-        return view('murid.telusuri', compact('user'));
-    }
+  
     public function search(Request $request){
     $search = $request->id;
     $users = User::where('name','LIKE',"%{$search}%")->where('role' , 1)
@@ -117,13 +114,12 @@ class MuridController extends Controller
     $delete = method_field('DELETE') ;
     
     $outputhead .= '<center><p>Hasil pencarian <b>'.$search.'</b></p></center>';
-    $outputnoresult .= '<center><p>tidak ditemukan</p></center>';
     
     
    if($users->isNotEmpty())   { 
     foreach ($users as $user){
     
-    $outputbody .=  '<a href="tutor/'.$username.'"><div class="media">
+    $outputbody .=  '<a href="/tutor/'.$user->username.'"><div class="media">
   <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
   <div class="media-body">
     <h5 class="mt-0">'.$user->name.'</h5>
@@ -138,9 +134,14 @@ class MuridController extends Controller
  }  
   else {
         echo $outputhead;
-        echo $outputnoresult;
+        echo 'tidak ditemukan';
     }
     }
+ 
+ public function telusuri(){
+        $user = Auth::user();
+        return view('murid.telusuri', compact('user'));
+    } 
     
     public function profile()
     {

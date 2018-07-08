@@ -1,56 +1,31 @@
 @extends('layouts.master')
-
 @section('content')
-@include('layouts.profile')
- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-
-            <br>
-            
-            <div class="card">
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <img class="mr-3" src="{{ $user->gravatar }}"  width="50" alt="Generic placeholder image">
-                    @include('tutor.rating')
-                    {{$user->name}}
-                    <br>
-                    {{$user->role}}
-                    <br>
-                    {{$user->profile->note }}
-                    
-                    
-                   
-                    
-                <br>    
-@foreach($user->murids as $murid)
-<div class="media">
-  <img class="mr-3" src="{{ $murid->gravatar }}"  width="50" alt="Generic placeholder image">
-  <div class="media-body">
- <a href="{{route('murid.profile',  $murid->username)}}" ><h5 class="mt-0">{{ $murid->name }}</h5></a>
-    {{ $murid->email }} | {{$murid->created_at->diffForHumans()}} | {{ $murid->role }}
-    </div>
-    <a href="{{route('unfollow', $murid->id)}}"> <div class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></div> </a>
-</div>
-<hr>
-@endforeach
-<a class="btn btn-danger" href="{{route('tutor.telusuri')}}">Siswa</a>
-                </div>
-            </div>
+@include('layouts.menu')
+<div class="container">
+    <div class="row justify-content-center mt-0">
+        <div class="col-lg-3 pr-1 pl-1 pb-0  ">
+        @include('layouts.profile')
+        @include('layouts.listuser')
+        </div>
+        
+        <div class="col-lg-6 pr-1 pl-1 pb-1 pt-0">
+         @include('layouts.report')
+        </div>
+        
+        <div class="col-lg-3 pr-1 pl-1 pb-1">
+        @include('layouts.nilai')
         </div>
     </div>
-</div>
-<br>
-<script>
+</div>   
+
+
+
+   <script>
 	/* global $ */
 	function rateIt(userId,elem) {
 	var csrfToken = '{{csrf_token()}}';
 	var point = parseFloat($('input[type="radio"]:checked').val());
-	var avg = parseFloat('{{$avgrate}}');
+	var avg = parseFloat('{{$user->id}}');
 	var avgcount = parseFloat(point) + parseFloat(avg);
 	var newavg = avgcount/2;
 	
@@ -59,5 +34,5 @@
 		console.log(point, avg, avgcount , newavg);
 	});
 	};
-</script>
+</script>         
 @endsection

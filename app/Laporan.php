@@ -10,7 +10,12 @@ class Laporan extends Model
     
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id');
+    }
+    
+    public function murid()
+    {
+        return $this->belongsTo('App\User','murid_id');
     }
     
     public function komentars()
