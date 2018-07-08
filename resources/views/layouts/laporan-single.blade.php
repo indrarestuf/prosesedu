@@ -1,5 +1,4 @@
- @foreach($laporans as $laporan)
-        <div class="my-1 pl-3 pr-3 pb-1 pt-1 bg-white rounded box-shadow">
+ <div class="my-1 pl-3 pr-3 pb-1 pt-1 bg-white rounded box-shadow">
             <div class="media pt-3 ">
             <img src="{{ $laporan->user->gravatar }}" width="40" alt="" class="mr-2 rounded-circle">
             <div class="media-body">
@@ -15,30 +14,42 @@
               <div class="nilai rounded  pt-2 text-center"><b>{{ $laporan->nilai }}</b></div>
               </div>
             <hr>
-            <p>{!! substr(strip_tags($laporan->isi), 0, 250) !!}{{ strlen(strip_tags($laporan->isi)) > 250 ? "..." : "" }}</p> 
+            <p>{!! $laporan->isi !!}</p> 
             <div class="chip {{ $laporan->hadir == 'Hadir' ? 'hadir' : 'absen' }}">{{$laporan->hadir}}</div>
             <div class="chip kelas">{{$laporan->program}}</div>
             <div class="chip mapel">{{$laporan->mapel}}</div> 
             
 
+<form role="form" action="{{ route('komentar') }}" class="pt-2 " method="POST" >
+  <div class="form-group">
+    {{ csrf_field() }}
+<div class="input-group mb-3">
+  <textarea type="text" style="height:35px" id="isi"  class="form-control " name="isi" placeholder="Beri Tanggapan" aria-label="komentar" aria-describedby="basic-addon2" {{Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id ? '' : 'disabled'}} ></textarea>
+  <div class="input-group-append">
+    <button class="btn  btn-sm btn-primary komentar" {{Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id ? '' : 'disabled'}}  type="submit"><i class="fa fa-send"></i></button>
+  </div>
+ </div>
+ </form>
+<div class="add-new" id="load-data">
  @foreach($komentars as $komentar)
  @if($laporan->id == $komentar->laporan_id)
-<div class="media  pt-1 "> 
+ <div class="komentar-hapus{{$komentar->id}}">
+<div class="media  pt-1 komentar{{$komentar->id}}"> 
 <img class="mr-3 rounded-circle" src="{{ $komentar->user->gravatar }}"  width="32" alt="Generic placeholder image">
  <div class="media-body  mb-0  border-gray">
       <p class="mt-0 mb-0"><strong class=" text-gray-dark">{{ $komentar->user->name }}</strong> </p>
               
-       <p>{!! substr(strip_tags($komentar->isi), 0, 250) !!} {{ strlen(strip_tags($komentar->isi)) > 250? "...ReadMore" : "" }}</p>
+       <p> {!! $komentar->isi !!}</p>
 
     <small class="mt-0 ">{{$komentar->created_at->diffForHumans()}}&nbsp;&nbsp;&nbsp;&nbsp; &bull; &nbsp; 
     <div class="btn btn-light btn-sm delete" data-id="{{ $komentar->id }}"><i class="fa fa-trash"></i> hapus</div>
     </small>
 </div>
  </div>
-
+</div>
+ <hr>
  @endif
  @endforeach
-  <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light  btn-block">Selengkapnya</a>
  </div>
- @endforeach
- 
+ </div>
+ </div>

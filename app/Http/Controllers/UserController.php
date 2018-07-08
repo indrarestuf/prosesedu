@@ -7,8 +7,11 @@ use App\User;
 use App\Profile;
 use App\Laporan;
 use App\Komentar;
+use App\Rate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+
 
 use App\Events\registerProfile;
 
@@ -56,14 +59,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function komentar($id,  Request $request)
+    public function komentar( Request $request)
     {
-        $laporans = Laporan::findOrFail($id);
+        $laporanId=Input::get('laporanId');
+        $laporan = Laporan::findOrFail($laporanId);
+
+        $komentar=new Komentar();
         $komentar->user_id = \Auth::user()->id;
         $komentar->isi = nl2br($request->isi);
-        $komentar->laporan_id = $laporans->id;
+        $komentar->laporan_id = $laporan->id;
         $komentar->save();
-        return back()->with('status','Data Berhasil Disimpan');
+        return response()->json([$komentar]);
     }
     
     
@@ -83,7 +89,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+    $user = Auth::user();
+    $laporan = Laporan::whereId($id)->first();
+    $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
+    $rate = Rate::where('user_id', Auth::user()->id)->first();
+        $avgrate = round(Rate::where('rateable_id', $user->id)->avg('point'),1);
+        $oldrate =  number_format($avgrate, 1, '.', '');
+    return view('tutor.laporan' , compact('laporan' , 'komentars', 'user' , 'avgrate' , 'oldrate'));    
     }
 
     /**

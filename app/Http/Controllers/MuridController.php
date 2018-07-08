@@ -53,7 +53,7 @@ class MuridController extends Controller
     {
         $user = User::whereUsername($username)->first();
         $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
-        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
+        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(1)->get();
         $tutor = $user->tutors()->where('tutor_id','=' , Auth::user()->id)->pluck('tutor_id')->first();
         // dd($tutor);
         // $murids = $user->murids;

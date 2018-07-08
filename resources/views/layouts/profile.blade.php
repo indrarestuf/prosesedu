@@ -36,8 +36,11 @@
  	{{$user->profile->note}}
  	@endif
  </small>
-</div>
+ @if($user->role == 'Tutor')
 
-<div class="my-1 p-2 bg-white rounded shadow text-center">   
+<div class=" text-center">   
 	@include('tutor.rating')
 </div>
+@endif
+</div>
+

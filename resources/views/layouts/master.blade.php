@@ -127,36 +127,6 @@ $('.owl-carousel').owlCarousel({
     });
 </script>
 
-<script>
-/*global $*/
-	$(document).ready(function() {
-    var text_max = 150;
-     // on button click we are getting values by input name.
-      $(".komentar").click(function(e){
-        e.preventDefault();
-        var _token = $("input[name='_token']").val(); // get csrf field.
-        var isi = $("#isi").val();
-        var userId = '{{Auth::user()->id}}';
-        var username = '{{Auth::user()->name}}';
-        var avatar = '{{Auth::user()->gravatar}}';      
-        var laporanId = '{{$laporan->id}}';  
-        var text_length = $('.count').val().length;
 
-   
-    $('#isi').val("");
-        $.ajax({
-              url: "{{route('komentar')}}",
-              type:'POST',
-              
-    		  dataType: "json",
-              data: { _token:_token, isi:isi, userId:userId, laporanId:laporanId},
-              success:function(data) {
-    		console.log(data);
-    		var komentar = ' <div class="pulse komentar-hapus'+data[0].id+'"><div class="komentar'+data[0].id+'"><div class="col-xs-1" style="padding:0"><img src="'+avatar+'" class="text-center img-responsive" style="text-align: left;width:40px;border-radius:100px;"></div><div class="col-xs-11"  style="padding-right:0px"><div class="box-komentar komentar-hijau"><p><b style="text-transform: capitalize;">'+username+'</b></h6><p>'+data[0].isi+'</p></div><div style="float: left; margin: 5px 0px 20px 20px;"><span style="cursor: pointer;font-size:11px; color: #fc5c65" class="delete" data-id="'+data[0].id+'"><b>Hapus</b>&nbsp;</span><i style="font-size:11px; color: #a4b0be">  <span class="glyphicon glyphicon-time" ></span> Baru saja</i></div> </div></div> </div>';
-         $('.add-new').prepend(komentar);
-     			}});
-  })
-  });
-</script>
 </body>
 </html>

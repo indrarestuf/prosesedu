@@ -99,7 +99,7 @@ class TutorController extends Controller
     {
         $user = User::whereUsername($username)->first();
         $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
-        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
+        $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(1)->get();
         $rate = Rate::where('user_id', Auth::user()->id)->first();
         $avgrate = round(Rate::where('rateable_id', $user->id)->avg('point'),1);
         $oldrate =  number_format($avgrate, 1, '.', '');
