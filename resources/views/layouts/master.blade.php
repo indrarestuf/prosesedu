@@ -26,7 +26,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/owl.theme.min.css') }}" rel="stylesheet">
 </head>
-<body style="background-color:#30336b;padding-top:65px">
+<body style="background-color:rgb(19, 15, 64, 1.0);padding-top:65px">
     
     <main>
         @yield('content')
@@ -70,6 +70,24 @@ $(document).ready(function(){
            $( "#result-tutor" ).show(); 
                $.get( "{{ url('murid/cari?id=') }}"+str, function( data ) {
                    $( "#result-tutor" ).html( data );
+               });
+           }
+   });  
+}); 
+</script>
+<script>
+/*global $*/
+$(document).ready(function(){
+   $("#search-user").keyup(function(){
+       var str=  $("#search-user").val();
+       if(str == "") {
+               $( "#result-user" ).hide(); 
+               $( "#list-user" ).show(); 
+       }else {
+           $( "#list-user" ).hide(); 
+           $( "#result-user" ).show(); 
+               $.get( "{{ url('user/cari?id=') }}"+str, function( data ) {
+                   $( "#result-user" ).html( data );
                });
            }
    });  

@@ -26,7 +26,7 @@
 <div class="media  pt-1 "> 
 <img class="mr-3 rounded-circle" src="{{ $komentar->user->gravatar }}"  width="32" alt="Generic placeholder image">
  <div class="media-body  mb-0  border-gray">
-      <p class="mt-0 mb-0"><strong class=" text-gray-dark">{{ $komentar->user->name }}</strong> </p>
+      <p class="mt-0 mb-0"><strong class=" text-gray-dark">{{ $komentar->where('laporan_id' , $laporan->id)->count()}}</strong> </p>
               
        <p>{!! substr(strip_tags($komentar->isi), 0, 250) !!} {{ strlen(strip_tags($komentar->isi)) > 250? "...ReadMore" : "" }}</p>
 
@@ -38,7 +38,8 @@
 
  @endif
  @endforeach
-  <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light  btn-block">Selengkapnya</a>
+ <hr class="mb-1 mt-1">
+  <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light mb-1  btn-block">Selengkapnya</a>
  </div>
  @endforeach
  

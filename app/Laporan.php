@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Laporan extends Model
 {
-    protected $fillable = ['isi', 'nilai', 'kelas', 'mapel', 'level', 'hadir', 'user_id', 'murid_id'];
+    protected $fillable = ['isi', 'nilai_afektif', 'nilali_kognitif', 'kelas', 'mapel', 'level', 'hadir', 'user_id', 'murid_id'];
     
     public function user()
     {

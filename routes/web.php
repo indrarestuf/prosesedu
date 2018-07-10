@@ -22,7 +22,7 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>'admin'], function(){
 Route::name('admin.')->group(function () {
-    Route::get('/admin/search','SearchController@load'); 
+    Route::get('/user/cari','SearchController@search'); 
     Route::get('/admin/user/tambah','UserController@tambah')->name('usertambah');
     Route::post('/admin/user/create','UserController@create')->name('usercreate');
     Route::delete('/admin/userdelete/{id}','UserController@destroy')->name('userdelete');
@@ -67,6 +67,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/komentar/delete/{id}','UserController@hapuskomentar')->name('komentardelete');
     Route::get('/murid/{id}/follow', 'TutorController@followUser')->name('follow');
     Route::get('/murid/{id}/unfollow', 'TutorController@unFollowUser')->name('unfollow');
-    Route::get('/laporan/{id}', 'UserController@show')->name('laporan');
+    Route::get('/laporan/{username}/{id}', 'UserController@show')->name('laporan');
     Route::post('/laporan/komentar', 'UserController@komentar')->name('komentar');
 });

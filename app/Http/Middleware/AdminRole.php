@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class AdminRole
 {
@@ -15,13 +16,12 @@ class AdminRole
      */
     public function handle($request, Closure $next)
     {
-      if (Auth::user() &&  Auth::user()->role == 2) {
+      if (Auth::user() &&  Auth::user()->role == 0) {
             return $next($request);
      }
 
     return abort(404);
     }
 
-    return redirect('/')->with('msg','ga boleh');
-    }
+  
 }

@@ -87,15 +87,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($username , $id)
     {
-    $user = Auth::user();
+    $user = User::whereUsername($username)->first();
     $laporan = Laporan::whereId($id)->first();
-    $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->limit(5)->get();
-    $rate = Rate::where('user_id', Auth::user()->id)->first();
-        $avgrate = round(Rate::where('rateable_id', $user->id)->avg('point'),1);
-        $oldrate =  number_format($avgrate, 1, '.', '');
-    return view('tutor.laporan' , compact('laporan' , 'komentars', 'user' , 'avgrate' , 'oldrate'));    
+    
+    $komentars = Komentar::with('laporan') ->whereIn('user_id', [$laporan->user->id, $laporan->murid->id]) 
+    ->orderBy('created_at' , 'desc')->limit(5)->get();
+        // dd($komentars);
+    return view('tutor.laporan' , compact('laporan' , 'komentars', 'user' ));    
     }
 
     /**
@@ -133,4 +133,6 @@ class UserController extends Controller
         $user->delete();
         return back()->with('status' , 'user dihapus');
     }
+    
+    
 }

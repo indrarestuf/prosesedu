@@ -18,11 +18,12 @@ class CreateLaporansTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('murid_id');
             $table->text('isi');
-            $table->tinyInteger('nilai')->nullable();
-            $table->tinyInteger('kelas')->nullable();
-            $table->tinyInteger('mapel')->nullable();
-            $table->tinyInteger('level')->nullable();
-            $table->tinyInteger('hadir')->nullable();
+            $table->tinyInteger('nilai_afektif');
+            $table->tinyInteger('nilai_kognitif');
+            $table->tinyInteger('kelas');
+            $table->tinyInteger('mapel');
+            $table->tinyInteger('level');
+            $table->tinyInteger('hadir');
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');

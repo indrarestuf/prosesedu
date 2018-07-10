@@ -13,19 +13,21 @@
  
     </ul>
     <ul class="navbar-nav justify-content-end">
-               @if (Auth::user()->role == 'Admin')
+        @auth
+               @if(\Auth::user()->role == 'Admin')
       <li class="nav-item active">
        <a class="nav-link" href="{{ route('admin.userlist') }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp;{{Auth::user()->name}}</a>
       </li>
-      @elseif (Auth::user()->role == 'Tutor')
+      @elseif (\Auth::user()->role == 'Tutor')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp; {{Auth::user()->name}}</a>
       </li>
-      @elseif (Auth::user()->role == 'Murid')
+      @elseif (\Auth::user()->role == 'Murid')
                         <li class="nav-item">
                                 <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30"> &nbsp;&nbsp;{{Auth::user()->name}}</a>
                             </li>
        @endif
+       
       <li class="nav-item">
        
       </li>
@@ -38,6 +40,12 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    @endauth
+    @guest
+    <li class="nav-item">
+       <a class="nav-link" href="{{ route('login')}}">Masuk</a>
+      </li>
+      @endguest
 </ul>
     <!--<form class="form-inline my-2 my-lg-0">-->
     <!--  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->

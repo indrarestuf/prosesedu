@@ -1,35 +1,24 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('content')
+@include('layouts.menu')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-                    @if (session('status'))
-                        <div class="alert alert-success">
+    <div class="row justify-content-center mt-0">
+        <div class="col-lg-3 pr-1 pl-1 pb-0  ">
+        @include('admin.profile')
+        </div>
+        
+        <div class="col-lg-6 pr-1 pl-1 pb-1 pt-0">
+            @if (session('status'))
+                        <div class="alert alert-success mb-0 mt-1">
                             {{ session('status') }}
                         </div>
                     @endif
-    </div>
-</div>
-<br>
-@include('auth.partials.register-form')
-<br>
-@include('admin.search')
-           
-            <div class="card" >
-                <div class="card-header">User yang baru ditambahkan</div>
-
-                <div class="card-body">
-<div  id="result"></div>
-<div  id="list">
-@include('admin.list')
-</div>
-            </div>
+        @include('admin.list')
+        </div>
+        
+        <div class="col-lg-3 pr-1 pl-1 pb-1">
+        @include('admin.list')
         </div>
     </div>
-</div>
-<br>
-
-
-
+</div>   
 @endsection

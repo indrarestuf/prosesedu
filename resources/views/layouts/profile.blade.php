@@ -11,7 +11,7 @@
 		@if($user->role == 'Murid')
 		<small>Kelas {{$user->profile->kelas}}&nbsp; &bull; &nbsp;{{$user->profile->sekolah}}</small>
 		@elseif($user->role == 'Tutor')
-		<small>{{$user->role}} &#9733; {{$avgrate}}</small>
+		<small>{{$user->role}} &#9733; </small>
 		@endif
 
 </div>
@@ -36,11 +36,6 @@
  	{{$user->profile->note}}
  	@endif
  </small>
- @if($user->role == 'Tutor')
 
-<div class=" text-center">   
-	@include('tutor.rating')
-</div>
-@endif
 </div>
 

@@ -19,7 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string('kelas')->nullable();
             $table->string('sekolah')->nullable();
             $table->string('ortu')->nullable();
-            $table->string('note')->nsullable();
+            $table->string('note')->nullable();
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

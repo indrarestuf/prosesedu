@@ -84,7 +84,8 @@ class TutorController extends Controller
         $laporan->level = $user->kelas;
         $laporan->kelas = $request->kelas;
         $laporan->hadir = $request->hadir;
-        $laporan->nilai = $request->nilai;
+        $laporan->nilai_afektif = $request->nilai_afektif;
+        $laporan->nilai_kognitif = $request->nilai_kognitif;
         $laporan->save();
         return back()->with('status','Laporan Terkirim');
     }
@@ -150,7 +151,7 @@ class TutorController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('tutor.profile', compact('user' ))->with('info' , Auth::user()->profile);  
+        return view('tutor.profile', compact('user' ))->with('info' , Auth::user()->profile);   
     }
     public function profileUpdate(Request $request)
     {
