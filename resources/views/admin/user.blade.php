@@ -17,7 +17,7 @@
         </div>
         
         <div class="col-lg-3 pr-1 pl-1 pb-1">
-        @include('admin.list')
+        @include('admin.data')
         </div>
     </div>
 </div>   

@@ -5,7 +5,7 @@
 <div id="list-user">
 @foreach($users as $user)
 <div class="media">
-  <img class="mr-3 rounded-circle" src="{{ $user->gravatar }}"  width="32" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="{{ $user->gravatar }}"  width="32" height="32" alt="Generic placeholder image">
   <div class="media-body">
 @if($user->role == 'Tutor')
 <a href="{{route('tutor.profile',  $user->username)}}" >
