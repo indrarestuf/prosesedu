@@ -23,6 +23,6 @@ trait RateableTrait
     }
        public function israted()
     {
-        return !!$this->rates()->where('user_id',auth()->id())->count();
+        return $this->rates()->where('rateable_id',Auth::user()->id)->count();
     }
 }

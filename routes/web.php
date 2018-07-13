@@ -55,11 +55,12 @@ Route::name('murid.')->group(function () {
         Route::get('murid/telusuri/tutor' , 'MuridController@telusuri')->name('telusuri');
         Route::get('murid/kata-sandi' , 'KatasandiController@katasandi')->name('katasandi');
         Route::post('murid/kata-sandi/ganti' , 'KatasandiController@katasandiGanti')->name('katasandiganti');
+        Route::post('/review/{username}', 'RateController@create')->name('review');
+        Route::post('/review/update/{username}', 'RateController@update')->name('updatereview');
     });
     
     Route::group(['middleware'=>'auth'], function(){
         Route::get('/murid/{username}', 'MuridController@show')->name('profile');
-        Route::post('/rate','RateController@rate')->name('rating');
     });
 });
 
@@ -67,6 +68,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/komentar/delete/{id}','UserController@hapuskomentar')->name('komentardelete');
     Route::get('/murid/{id}/follow', 'TutorController@followUser')->name('follow');
     Route::get('/murid/{id}/unfollow', 'TutorController@unFollowUser')->name('unfollow');
-    Route::get('/laporan/{username}/{id}', 'UserController@show')->name('laporan');
+    Route::get('/laporan/{id}', 'UserController@show')->name('laporan');
     Route::post('/laporan/komentar', 'UserController@komentar')->name('komentar');
 });

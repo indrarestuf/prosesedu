@@ -87,15 +87,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($username , $id)
+    public function show($id)
     {
-    $user = User::whereUsername($username)->first();
     $laporan = Laporan::whereId($id)->first();
-    
-    $komentars = Komentar::with('laporan') ->whereIn('user_id', [$laporan->user->id, $laporan->murid->id]) 
-    ->orderBy('created_at' , 'desc')->limit(5)->get();
+    $user = Auth::user();
+    $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
         // dd($komentars);
-    return view('tutor.laporan' , compact('laporan' , 'komentars', 'user' ));    
+    return view('layouts.laporan' , compact('laporan' , 'komentars', 'user' ));    
     }
 
     /**

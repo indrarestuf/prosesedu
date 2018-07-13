@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center mt-0">
         <div class="col-lg-3 pr-1 pl-1 pb-0  ">
-        @include('layouts.profile')
+        @include('auth.profile')
         @include('layouts.listuser')
         </div>
         
@@ -49,7 +49,7 @@
               data: { _token:_token, isi:isi, userId:userId, laporanId:laporanId},
               success:function(data) {
     		console.log(data);
-    		var komentar = '<div class="komentar-hapus'+data[0].id+'"><div class="media  pt-1 komentar'+data[0].id+'"><img class="mr-3 rounded-circle" src="'+avatar+'"  width="32" alt="Generic placeholder image"><div class="media-body  mb-0  border-gray"><p class="mt-0 mb-0"><strong class=" text-gray-dark">'+username+'</strong> </p><p> '+data[0].isi+'</p> <small class="mt-0 ">Baru saja&nbsp;&nbsp;&nbsp;&nbsp; &bull; &nbsp; <div class="btn btn-light btn-sm delete" data-id="'+data[0].id+'"><i class="fa fa-trash"></i> hapus</div></small></div> </div></div><hr>';
+    		var komentar = '<div class="komentar-hapus'+data[0].id+'"><div class="media  pt-1 komentar'+data[0].id+'"><img class="mr-3 rounded-circle border-avatar" src="'+avatar+'"  width="40" height="40" alt="Generic placeholder image"><div class="media-body  mb-0  border-gray"><p class="mt-0 mb-0"><strong class=" text-gray-dark">'+username+'</strong> </p><p> '+data[0].isi+'</p> <small class="mt-0 ">Baru saja&nbsp;&nbsp;&nbsp;&nbsp; &bull; &nbsp; <div class="btn btn-light btn-sm delete" data-id="'+data[0].id+'"><i class="fa fa-trash"></i> hapus</div></small></div> </div></div><hr>';
          $('.add-new').prepend(komentar);
      			}});
   })

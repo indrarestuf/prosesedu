@@ -41,7 +41,7 @@ class User extends Authenticatable
     public function getGravatarAttribute()
     {
     $hash = md5(strtolower(trim($this->attributes['email'])));
-    return "http://www.gravatar.com/avatar/$hash?d=identicon";
+    return "http://www.gravatar.com/avatar/$hash?d=robohash&f=y";
     }
     
     public function getRoleAttribute()
@@ -77,5 +77,10 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne('App\Profile');
+    }
+    
+    public function rate()
+    {
+        return $this->hasOne('App\Rate');
     }
 }

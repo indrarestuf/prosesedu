@@ -32,10 +32,9 @@
         @yield('content')
     </main>
 
- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/style.js') }}" defer></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
 <script>
@@ -95,9 +94,13 @@ $(document).ready(function(){
 </script>
 <script>
 /*global $*/
-    $(function () {
+$(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+$('.navbar-nav>li>a').on('click', function(){
+    $('.navbar-collapse').collapse('hide');
+});
 </script>
 <script>
 /*global $*/
@@ -105,7 +108,7 @@ $(document).ready(function(){
 $('.owl-carousel').owlCarousel({
     loop:false,
     margin:10,
-    nav:true,
+    nav:false,
     responsive:{
         0:{
             items:5

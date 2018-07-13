@@ -6,9 +6,15 @@
         <div class="col-lg-3 pr-1 pl-1 pb-0  ">
         @include('layouts.profile')
         @include('layouts.listuser')
+        @include('tutor.rating')
         </div>
         
         <div class="col-lg-6 pr-1 pl-1 pb-1 pt-0">
+               @if (session('status'))
+                        <div class="alert alert-success mb-0 mt-1">
+                            {{ session('status') }}
+                        </div>
+                    @endif
          @include('layouts.report')
         </div>
         
@@ -17,22 +23,4 @@
         </div>
     </div>
 </div>   
-
-
-
-   <script>
-	/* global $ */
-	function rateIt(userId,elem) {
-	var csrfToken = '{{csrf_token()}}';
-	var point = parseFloat($('input[type="radio"]:checked').val());
-	var avg = parseFloat('{{$user->id}}');
-	var avgcount = parseFloat(point) + parseFloat(avg);
-	var newavg = avgcount/2;
-	
-               $('#ratecount').text(newavg.toFixed(1));
-	$.post("{{route('murid.rating')}}", {userId:userId,_token:csrfToken,point:point}, function(data){
-		console.log(point, avg, avgcount , newavg);
-	});
-	};
-</script>         
 @endsection

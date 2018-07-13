@@ -20,7 +20,7 @@ class AdminRole
             return $next($request);
      }
 
-    return abort(404);
+    return back();
     }
 
   

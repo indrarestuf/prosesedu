@@ -24,7 +24,7 @@ class SearchController extends Controller
         
     if($user->role == 'Tutor'){
           $outputbody .=  '<div class="media">
-  <img class="mr-3 rounded-circle" src="'.$user->gravatar.'"  width="32" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'" width="40" height="40"alt="Generic placeholder image">
   <div class="media-body">
     <a href="/tutor/'.$user->username.'"><p class="mt-0 mb-0">'.$user->name.'</p></a>
     <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>
@@ -39,7 +39,7 @@ class SearchController extends Controller
     
     elseif($user->role == 'Murid'){
           $outputbody .=  '<div class="media">
-  <img class="mr-3 rounded-circle" src="'.$user->gravatar.'"  width="32" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'" width="40" height="40" alt="Generic placeholder image">
   <div class="media-body">
     <a href="/murid/'.$user->username.'"><p class="mt-0 mb-0">'.$user->name.'</p></a>
     <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>
@@ -54,7 +54,7 @@ class SearchController extends Controller
     
     elseif($user->role == 'Admin'){
           $outputbody .=  '<div class="media">
-  <img class="mr-3 rounded-circle" src="'.$user->gravatar.'"  width="32" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'"  width="40" height="40" alt="Generic placeholder image">
   <div class="media-body">
     <a href=""><p class="mt-0 mb-0">'.$user->name.'</p></a>
     <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>

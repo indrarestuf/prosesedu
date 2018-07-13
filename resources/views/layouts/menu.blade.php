@@ -5,9 +5,15 @@
                      <img src="{{asset('img/logo.png')}}" width="30" height="30" alt="">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+ 
+  <button class="navbar-toggler btn-flat mt-1" style="border-color:transparent" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  @auth
+  <img src="{{Auth::user()->gravatar}}" class="rounded-circle border-avatar bg-white" width="30"></img> 
+  @endauth
+  @guest
+  <span class="navbar-toggler-icon"></span>
+  @endguest
+    </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
  
@@ -16,15 +22,15 @@
         @auth
                @if(\Auth::user()->role == 'Admin')
       <li class="nav-item active">
-       <a class="nav-link" href="{{ route('admin.userlist') }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp;{{Auth::user()->name}}</a>
+       <a class="nav-link" href="{{ route('admin.userlist') }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle bg-white border-avatar" width="30">&nbsp;&nbsp;{{Auth::user()->name}}</a>
       </li>
       @elseif (\Auth::user()->role == 'Tutor')
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30">&nbsp;&nbsp; {{Auth::user()->name}}</a>
+        <a class="nav-link" href="{{ route('tutor.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle bg-white border-avatar" width="30">&nbsp;&nbsp; {{Auth::user()->name}}</a>
       </li>
       @elseif (\Auth::user()->role == 'Murid')
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle" width="30"> &nbsp;&nbsp;{{Auth::user()->name}}</a>
+                                <a class="nav-link" href="{{ route('murid.profile', Auth::user()->username) }}"><img src="{{Auth::user()->gravatar}}" class="rounded-circle bg-white border-avatar" width="30"> &nbsp;&nbsp;{{Auth::user()->name}}</a>
                             </li>
        @endif
        

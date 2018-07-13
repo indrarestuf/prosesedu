@@ -1,15 +1,15 @@
 .star-rating {
   font-family: 'FontAwesome';
 }
-.star-rating > fieldset {
+.star-rating > .rating {
   border: none;
   display: inline-block;
 }
-.star-rating > fieldset:not(:checked) > input {
+.star-rating > .rating:not(:checked) > input {
   position: absolute;
   clip: rect(0, 0, 0, 0);
 }
-.star-rating > fieldset:not(:checked) > label {
+.star-rating > .rating:not(:checked) > label {
   float: right;
   width: 1em;
   overflow: hidden;
@@ -18,25 +18,28 @@
   font-size: 200%;
   color: #16a085;
 }
-.star-rating > fieldset:not(:checked) > label:before {
+.star-rating > .rating:not(:checked) > label:before {
   content: '\f006  ';
 }
-.star-rating > fieldset:not(:checked) > label:hover,
-.star-rating > fieldset:not(:checked) > label:hover ~ label {
+.star-rating > .rating:not(:checked) > label:hover,
+.star-rating > .rating:not(:checked) > label:hover ~ label {
   color: #1abc9c;
   text-shadow: 0 0 3px #1abc9c;
 }
-.star-rating > fieldset:not(:checked) > label:hover:before,
-.star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+.star-rating > .rating:not(:checked) > label:hover:before,
+.star-rating > .rating:not(:checked) > label:hover ~ label:before {
   content: '\f005  ';
 }
-.star-rating > fieldset > input:checked ~ label:before {
+.star-rating > .rating > input:checked ~ label:before {
   content: '\f005  ';
 }
-.star-rating > fieldset > label:active {
+.star-rating > .rating > label:active {
   position: relative;
 }
 
+.login-page{
+  width:350px;
+  }
 
 @media only screen and (max-width: 990px) {
     .container{
@@ -52,7 +55,10 @@
     margin: 0;
     padding: 0;
   }
-
+  
+  .login-page{
+  width:95%;
+  }
   .modal-content {
   height: auto;
   min-height: 100%;
@@ -84,7 +90,7 @@
 }
 .border-avatar {
   border: solid 1px #95afc0;
-   padding: 3px; 
+  padding: 3px;
 }
 
 .profile-info p{
@@ -94,6 +100,14 @@
   line-height:0.5;
   text-align:center;
 }
+
+.btn-group-justified {
+  display: flex;
+}
+.btn-group-justified .btn {
+  flex-grow: 1;
+}
+
 
 .chip {
     display: inline-block;
@@ -171,3 +185,4 @@ small a:hover{
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+

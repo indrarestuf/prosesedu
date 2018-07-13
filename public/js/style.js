@@ -99,3 +99,4 @@ function autocomplete(inp, arr) {
 var mapel = ["Fisika", "Matematika", "Biologi", "Kimia" , "IPA"]
 /*initiate the autocomplete function on the "mapel" element, and pass along the mapel array as possible autocomplete values:*/
 autocomplete(document.getElementById("mapel"), mapel);
+

@@ -4,7 +4,7 @@
 <div class="col-md-12 text-center">
     	<img class="border-avatar rounded-circle" width="50" src="{{$user->gravatar}}">
 </div>
-<div class="col-md-12 p-2  text-center">
+<div class="col-md-12 p-2 text-center ">
  
 		<b>{{$user->name}}</b>
     <br>
@@ -13,9 +13,9 @@
 		@elseif($user->role == 'Tutor')
 		<small>{{$user->role}} &#9733; </small>
 		@endif
-@if(Auth::user()->id == $user->id)  
+		@if(Auth::user()->id == $user->id)  
 @if(Auth::user()->role == 'Murid')  
-<a href="{{url('murid/profile/edit')}}"><button type="button" class="btn btn-light btn-sm"><i class="fa fa-gear"></i> Pengaturan</button></a>
+<a href="{{url('murid/profile/edit')}}"><button type="button" class="btn btn-light btn-sm "><i class="fa fa-gear"></i> Pengaturan</button></a>
 @elseif(Auth::user()->role == 'Tutor') 
 <a href="{{url('tutor/profile/edit')}}"><button type="button" class="btn btn-light btn-sm "><i class="fa fa-gear"></i> Pengaturan</button></a>
 @endif

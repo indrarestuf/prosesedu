@@ -5,7 +5,7 @@
   <label class="btn btn-outline-danger ">
     <input type="radio" name="hadir" value="0" id="option1" autocomplete="off" required> Absen
   </label>
-  <label class="btn btn-outline-info" style="border-radius:0">
+  <label class="btn btn-outline-info" >
     <input type="radio" name="hadir" value="1"  id="option2" autocomplete="off" required > Hadir
   </label>
 </div>
