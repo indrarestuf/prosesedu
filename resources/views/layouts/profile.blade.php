@@ -11,7 +11,7 @@
 		@if($user->role == 'Murid')
 		<small>Kelas {{$user->profile->kelas}}&nbsp; &bull; &nbsp;{{$user->profile->sekolah}}</small>
 		@elseif($user->role == 'Tutor')
-		<small>{{$user->role}} &#9733; </small>
+		<small>{{$user->role}} &#9733; {{$sum}} </small>
 		@endif
 @if(Auth::user()->id == $user->id)  
 @if(Auth::user()->role == 'Murid')  

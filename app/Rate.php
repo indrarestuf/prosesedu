@@ -17,4 +17,7 @@ class Rate extends Model
     public function user(){
     	return $this->belongsTo('App\User');
     }
+    public function voter(){
+    	return $this->belongsTo('App\User','rateable_id');
+    }
 }

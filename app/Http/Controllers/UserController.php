@@ -22,11 +22,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function review(){
+        $users = User::where('role', 1)->orderBy('created_at' , 'desc')->get();
+        $rates = Rate::orderBy('created_at' , 'desc')->limit(10)->get();
+        $laporans = Laporan::orderBy('created_at' , 'desc')->limit(10)->get();
+        return view('admin.review' , compact('users' , 'rates', 'laporans'));
+    }
+    
+    public function feeds()
+    {
+        $users = User::where('role', 'Tutor')->orderBy('created_at' , 'desc')->get();
+        $laporans = Laporan::orderBy('created_at' , 'desc')->limit(10)->get();
+        return view('admin.feeds' , compact('users' , 'laporans'));
+    }
+    
     public function index()
     {
         $users = User::orderBy('created_at' , 'desc')->get();
-        return view('admin.user' , compact('users'));
+        $laporans = Laporan::orderBy('created_at' , 'desc')->get();
+        return view('admin.user' , compact('users' , 'laporans' ));
     }
 
 

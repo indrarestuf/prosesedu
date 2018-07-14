@@ -101,14 +101,16 @@ class TutorController extends Controller
         $user = User::whereUsername($username)->first();
         $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
         $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
-        $rate = Rate::where('rateable_id', Auth::user()->id)->first();
-        // $avgrate = round(Rate::where('rateable_id', $user->id)->avg('point'),1);
+        $rate = Rate::with('user')->where('rateable_id', Auth::user()->id)->first();
+        $voter=User::has('rate')->get();
+        $sum = Rate::where('user_id', $user->id)->sum('point');
+        
         // $oldrate =  number_format($avgrate, 1, '.', '');
         if (empty($user) || $user->role != 'Tutor') {
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'avgrate', 'rate', 'oldrate' , 'laporans' , 'komentars'));
+            return view('tutor.show' , compact('user' , 'sum', 'rate', 'voter' , 'laporans' , 'komentars'));
         }
     }
 

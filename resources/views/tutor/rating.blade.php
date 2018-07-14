@@ -1,15 +1,15 @@
 @if (Auth::user()->role == 'Murid') 
 <div class="my-1 p-3 bg-white rounded shadow">
-@if (!count($user->rate)) 
+@if (!count($rate)) 
 <form method="POST" action="{{route('murid.review', $user->username)}}">
 @csrf
 <div class="star-rating text-center new">
   <div class="rating"  name="point">
-    <input type="radio" id="star5" name="point"  value="5" /><label for="star5" title="Outstanding">5 stars</label>
-    <input type="radio" id="star4" name="point"  value="4" /><label for="star4" title="Very Good">4 stars</label>
-    <input type="radio" id="star3" name="point"  value="3" /><label for="star3" title="Good">3 stars</label>
-    <input type="radio" id="star2" name="point"  value="2" /><label for="star2" title="Poor">2 stars</label>
-    <input type="radio" id="star1" name="point"  value="1" /><label for="star1" title="Very Poor">1 star</label>
+    <input type="radio" id="star5" name="point"  value="50" /><label for="star5" title="Outstanding">5 stars</label>
+    <input type="radio" id="star4" name="point"  value="40" /><label for="star4" title="Very Good">4 stars</label>
+    <input type="radio" id="star3" name="point"  value="30" /><label for="star3" title="Good">3 stars</label>
+    <input type="radio" id="star2" name="point"  value="20" /><label for="star2" title="Poor">2 stars</label>
+    <input type="radio" id="star1" name="point"  value="10" /><label for="star1" title="Very Poor">1 star</label>
   </div>
 </div>
 <div class="form-group">
@@ -25,11 +25,11 @@ Kirim review
 @csrf
 <div class="star-rating text-center update">
   <div class="rating" id="point"  name="point">
-    <input type="radio" id="star5" name="point" value="5"  {{ $rate->point == 5 ? 'checked' : '' }} /><label for="star5" title="Outstanding">5 stars</label>
-    <input type="radio" id="star4" name="point" value="4" {{ $rate->point == 4 ? 'checked' : '' }}    /><label for="star4" title="Very Good">4 stars</label>
-    <input type="radio" id="star3" name="point" value="3" {{ $rate->point == 3 ? 'checked' : '' }}   /><label for="star3" title="Good">3 stars</label>
-    <input type="radio" id="star2" name="point"  value="2" {{ $rate->point == 2 ? 'checked' : '' }}  /><label for="star2" title="Poor">2 stars</label>
-    <input type="radio" id="star1" name="point" value="1" {{ $rate->point == 1 ? 'checked' : '' }}   /><label for="star1" title="Very Poor">1 star</label>
+    <input type="radio" id="star5" name="point" value="50"  {{ $rate->point == 50 ? 'checked' : '' }} /><label for="star5" title="Outstanding">5 stars</label>
+    <input type="radio" id="star4" name="point" value="40" {{ $rate->point == 40 ? 'checked' : '' }}    /><label for="star4" title="Very Good">4 stars</label>
+    <input type="radio" id="star3" name="point" value="30" {{ $rate->point == 30 ? 'checked' : '' }}   /><label for="star3" title="Good">3 stars</label>
+    <input type="radio" id="star2" name="point"  value="20" {{ $rate->point == 20 ? 'checked' : '' }}  /><label for="star2" title="Poor">2 stars</label>
+    <input type="radio" id="star1" name="point" value="10" {{ $rate->point == 10 ? 'checked' : '' }}   /><label for="star1" title="Very Poor">1 star</label>
   </div>
 </div>
 <div class="form-group">

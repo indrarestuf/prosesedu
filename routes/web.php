@@ -27,6 +27,8 @@ Route::name('admin.')->group(function () {
     Route::post('/admin/user/create','UserController@create')->name('usercreate');
     Route::delete('/admin/userdelete/{id}','UserController@destroy')->name('userdelete');
 	Route::get('/admin/user','UserController@index')->name('userlist');
+	Route::get('/admin/user/feeds','UserController@feeds')->name('feeds');
+	Route::get('/admin/user/review','UserController@review')->name('review');
 });
 });
 
