@@ -15,7 +15,7 @@
 <input type="text"  class="form-control" name="nilai_kognitif" placeholder="Nilai Kognitif" required >
 </div>
   <div class="input-group mb-1">
-   <input type="text" class="form-control " id="mapel" name="mapel" placeholder="Ketik mata pelajaran" required >
+   <input type="text" class="form-control " autocomplete="off" id="mapel" name="mapel" placeholder="Ketik mata pelajaran" required >
    <div class="autocomplete shadow"></div>
    </div>
    <div class="input-group mb-1">

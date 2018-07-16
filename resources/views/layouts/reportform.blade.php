@@ -1,12 +1,6 @@
-@if (session('status'))
-    <div class="alert alert-success my-1">
-    {{ session('status') }}
-    </div>
-@endif
-
 @if (Auth::user()->id == $tutor)
-    <button type="button" class="my-1 pl-3 pr-3 pb-2 pt-2 btn btn-block bg-white text-left box-shadow " data-toggle="modal" data-target="#laporan-form">
-        <img src="{{ Auth::user()->gravatar }}" width="40" alt="" class="mr-2 rounded-circle">
+    <button type="button" class="my-1 pl-3 pr-3 pb-2 pt-2 btn btn-block btn btn-light text-left box-shadow " data-toggle="modal" data-target="#laporan-form">
+        <img src="{{ Auth::user()->gravatar }}" width="40" alt="" class="mr-2 rounded-circle bg-white border-avatar">
             <span class="text-muted small">Hai {{Auth::user()->username}}, buat laporan sekarang</span> 
             <hr class="mb-0 mt-0" style="margin-left:50px;">
     </button>

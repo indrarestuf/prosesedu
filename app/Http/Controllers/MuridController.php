@@ -119,13 +119,14 @@ class MuridController extends Controller
    if($users->isNotEmpty())   { 
     foreach ($users as $user){
     
-    $outputbody .=  '<a href="/tutor/'.$user->username.'"><div class="media">
-  <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
+    $outputbody .=  '<div class="media">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'" width="40" height="40"alt="Generic placeholder image">
   <div class="media-body">
-    <h5 class="mt-0">'.$user->name.'</h5>
-    '.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
+    <a href="/tutor/'.$user->username.'"><p class="mt-0 mb-0">'.$user->name.'</p></a>
+    <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>
     </div>
-</div></a>
+
+</div>
 <hr>';  
     }  
 
@@ -140,13 +141,15 @@ class MuridController extends Controller
  
  public function telusuri(){
         $user = Auth::user();
-        return view('murid.telusuri', compact('user'));
+        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        return view('murid.telusuri', compact('user', 'laporans'));
     } 
     
     public function profile()
     {
         $user = Auth::user();
-        return view('murid.profile', compact('user'))->with('info' , Auth::user()->profile);  
+        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        return view('murid.profile', compact('user', 'laporans'))->with('info' , Auth::user()->profile);  
     }
     
     public function profileUpdate(Request $request)

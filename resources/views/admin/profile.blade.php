@@ -16,7 +16,7 @@
 
 <div class="btn-group btn-group-sm mx-auto btn-group-justified" role="group" aria-label="Basic example">
 <a href="{{url('/admin/user')}}" type="button" class="btn btn-light"><i class="fa fa-users"></i></a>
-<button type="button" class="btn btn-light"  data-toggle="collapse" data-target="#adduser" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-user-plus"></i></button>
+<a class="btn btn-light"  data-toggle="collapse" href="#adduser" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-user-plus"></i></a>
 <a href="{{url('/admin/user/feeds')}}" type="button" class="btn btn-light"><i class="fa fa-list"></i></a>
 <a href="{{url('/admin/user/review')}}" type="button" class="btn btn-light"><i class="fa fa-star"></i></a>
 </div>

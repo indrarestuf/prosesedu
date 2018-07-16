@@ -5,12 +5,39 @@
               <p class="mt-0 mb-0"><strong class=" text-gray-dark">{{ $laporan->user->name }} &blacktriangleright; {{ $laporan->murid->name }} </strong></p>
               <small class="mt-0 d-inline">{{$laporan->created_at->diffForHumans()}}</small>
               </div>
-              @if( Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin')
-                <form method="POST" action="{{url('/laporan/delete/'.$laporan->id.'')}}" class="form-inline">  
+               @if( Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin')
+              <button type="button"  class="btn btn-light btn-sm" data-toggle="modal" data-target=".laporan{{$laporan->id}}"><i class="fa fa-trash"></i> hapus</button>
+
+                <div class="modal fade laporan{{$laporan->id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                         <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Hapus Laporan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+Anda akan menghapus Laporan untuk {{$laporan->murid->name}}?
+      </div>
+      <div class="modal-footer">
+
+    <button type="button" class="btn btn-outline-dark " data-dismiss="modal">Batal</button>
+         <form method="POST" action="{{url('/laporan/delete/'.$laporan->id.'')}}">  
                 {{ csrf_field() }}
-                <button type="submit" class="btn btn-light btn-sm"><i class="fa fa-trash"></i> hapus</button>
+                <button type="submit" class="btn btn-danger "> Hapus</button>
                 <input type="hidden" name="_method" value="DELETE">
-                </form>
+        </form>
+
+      
+      </div>
+                        
+                    
+                    </div>
+                  </div>
+                </div>
+                
+                
               @endif
               </div>
             <hr class="mb-2 mt-2">

@@ -67,21 +67,22 @@ body {
     }
 }
 @media only screen and (max-width: 575px) {
-    .modal-dialog {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+  /*  .modal-dialog {*/
+  /*  width: 100%;*/
+  /*  height: 100%;*/
+  /*  margin: 0;*/
+  /*  padding: 0;*/
+  /*}*/
+  /* .modal-content {*/
+  /*height: auto;*/
+  /*min-height: 100%;*/
+  /*border-radius: 0;*/
+  /*}*/
   
   .login-page{
   width:95%;
   }
-  .modal-content {
-  height: auto;
-  min-height: 100%;
-  border-radius: 0;
-  }
+ 
 }
 
 
@@ -153,9 +154,10 @@ body {
   color:#fff;
 }
 .nilai{
-  width:40px;
-  height:40px;
+  width:32px;
+  height:32px;
   background-color: #130f40;
+  font-size:15px;
   color:#fff;
 }
 

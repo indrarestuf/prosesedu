@@ -10,6 +10,11 @@
         </div>
         
         <div class="col-lg-6 pr-1 pl-1 pb-1 pt-0">
+                  @if (session('status'))
+                        <div class="alert alert-success mb-0 mt-1">
+                            {{ session('status') }}
+                        </div>
+                    @endif
    @include('layouts.reportform') 
     @include('layouts.report')
         </div>

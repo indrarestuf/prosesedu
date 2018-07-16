@@ -22,12 +22,11 @@
                     <div id="list-tutor">
 @foreach($user->tutors as $tutor)
 <div class="media">
-  <img class="mr-3 rounded-circle" src="{{ $tutor->gravatar }}"  width="32" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="{{$tutor->gravatar}}" width="40" height="40" alt="Generic placeholder image">
   <div class="media-body">
- <a href="{{route('tutor.profile',  $tutor->username)}}" ><h5 class="mt-0">{{ $tutor->name }}</h5></a>
-    {{ $tutor->email }} | {{$tutor->created_at->diffForHumans()}} | {{ $tutor->role }}
+    <a href="{{url('/tutor/'.$tutor->username.'')}}"><p class="mt-0 mb-0">{{$tutor->name}}</p></a>
+    <small class="mt-0 ">{{$tutor->username}} | {{$tutor->created_at->diffForHumans()}} |{{$tutor->role}}</small>
     </div>
-    <a href="{{route('unfollow', $tutor->id)}}"> <div class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></div> </a>
 </div>
 <hr>
 @endforeach

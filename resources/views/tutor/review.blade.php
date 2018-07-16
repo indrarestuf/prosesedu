@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center mt-0">
         <div class="col-lg-3 pr-1 pl-1 pb-0  ">
-        @include('layouts.profile')
+        @include('auth.profile')
         @include('layouts.listuser')
         @include('tutor.rating')
         </div>
@@ -15,7 +15,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-         @include('layouts.report')
+         @include('tutor.review-list')
         </div>
         
         <div class="col-lg-3 pr-1 pl-1 pb-1">

@@ -1,3 +1,9 @@
+ @if(!count($laporans))
+ <div class="my-1 p-3 bg-white rounded box-shadow text-center">
+     <i class="fa fa-file"></i>
+     <p class="text-muted mb-0">Belum ada Laporan</p>
+     </div>
+ @else
  @foreach($laporans as $laporan)
         <div class="my-1 pl-3 pr-3 pb-1 pt-1 bg-white rounded box-shadow">
             <div class="media pt-3 ">
@@ -23,10 +29,10 @@ Anda akan menghapus Laporan untuk {{$laporan->murid->name}}?
       </div>
       <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">Batal</button>
+    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batal</button>
          <form method="POST" action="{{url('/laporan/delete/'.$laporan->id.'')}}">  
                 {{ csrf_field() }}
-                <button type="submit" class="btn btn-danger btn-sm"> Hapus</button>
+                <button type="submit" class="btn btn-danger"> Hapus</button>
                 <input type="hidden" name="_method" value="DELETE">
         </form>
 
@@ -56,4 +62,4 @@ Anda akan menghapus Laporan untuk {{$laporan->murid->name}}?
  @endif
  </div>
  @endforeach
- 
+ @endif

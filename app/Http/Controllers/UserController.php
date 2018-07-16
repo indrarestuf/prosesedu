@@ -107,7 +107,13 @@ class UserController extends Controller
     $user = Auth::user();
     $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
         // dd($komentars);
-    return view('layouts.laporan' , compact('laporan' , 'komentars', 'user' ));    
+    if (empty($laporan)) {
+            abort(404);
+        }
+    else{
+        return view('layouts.laporan' , compact('laporan' , 'komentars', 'user' ));  
+    }
+      
     }
 
     /**

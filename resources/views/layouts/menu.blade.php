@@ -3,7 +3,7 @@
   <a class="navbar-brand" href="{{ url('/') }}">
       
                      <img src="{{asset('img/logo.png')}}" width="30" height="30" alt="">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Laravel') }} <small><small><small>beta</small></small></small>
                 </a>
  
   <button class="navbar-toggler btn-flat mt-1" style="border-color:transparent" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">

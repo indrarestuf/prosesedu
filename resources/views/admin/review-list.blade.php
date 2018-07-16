@@ -5,7 +5,7 @@
   <img class="rounded-circle border-avatar mr-2 " src="{{$user->gravatar}}" width="32" height="32" alt="Generic placeholder image">
   <div class="media-body">
     <b>{{$user->name}}</b> mendapat <b>{{$rates->where('user_id', $user->id)->sum('point')}}</b> point
-<div class="owl-carousel owl-theme pl-3">
+<div class="owl-carousel owl-theme">
 @foreach ($rates as $rate)
 @if($user->id == $rate->user_id)
     <div class="media mt-3">

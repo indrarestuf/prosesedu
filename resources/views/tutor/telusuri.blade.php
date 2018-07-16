@@ -22,14 +22,15 @@
                     <div id="list-murid">
 @foreach($user->murids as $murid)
 <div class="media">
-  <img class="mr-3" src="{{ $murid->gravatar }}"  width="50" alt="Generic placeholder image">
+  <img class="mr-3 rounded-circle border-avatar" src="{{$murid->gravatar}}" width="40" height="40" alt="Generic placeholder image">
   <div class="media-body">
- <a href="{{route('murid.profile',  $murid->username)}}" ><h5 class="mt-0">{{ $murid->name }}</h5></a>
-    {{ $murid->email }} | {{$murid->created_at->diffForHumans()}} | {{ $murid->role }}
+    <a href="{{url('/siswa/'.$murid->username.'')}}"><p class="mt-0 mb-0">{{$murid->name}}</p></a>
+    <small class="mt-0 ">{{$murid->username}} | {{$murid->created_at->diffForHumans()}} |{{$murid->role}}</small>
     </div>
-    <a href="{{route('unfollow', $murid->id)}}"> <div class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></div> </a>
+<a type="submit" href="{{route('unfollow', $murid->id)}}" class="btn btn-light btn-sm"><i class="fa fa-user-times"></i></a>
 </div>
 <hr>
+
 @endforeach
 </div>
 </div>

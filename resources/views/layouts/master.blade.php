@@ -43,6 +43,14 @@
 <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
 <script>
 /*global $*/
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+@auth
+@if(Route::currentRouteName('tutor.telusuri'))
+<script>
+/*global $*/
 $(document).ready(function(){
    $("#search-murid").keyup(function(){
        var str=  $("#search-murid").val();
@@ -59,8 +67,10 @@ $(document).ready(function(){
    });  
 }); 
 </script>
+@endif
 
-    <script>
+@if(Route::currentRouteName('murid.telusuri'))
+<script>
 /*global $*/
 $(document).ready(function(){
    $("#search-tutor").keyup(function(){
@@ -71,13 +81,16 @@ $(document).ready(function(){
        }else {
            $( "#list-tutor" ).hide(); 
            $( "#result-tutor" ).show(); 
-               $.get( "{{ url('murid/cari?id=') }}"+str, function( data ) {
+               $.get( "{{ url('siswa/cari?id=') }}"+str, function( data ) {
                    $( "#result-tutor" ).html( data );
                });
            }
    });  
 }); 
 </script>
+@endif
+
+@if(Route::currentRouteName('admin.telusuri'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -96,16 +109,34 @@ $(document).ready(function(){
    });  
 }); 
 </script>
+@endif
+@if(Auth::user()->role == 'Tutor' || Auth::user()->role == 'Murid'  )
+@if(Route::currentRouteName('tutor.profile', $user->username) || Route::currentRouteName('murid.profile', $user->username))
 <script>
 /*global $*/
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-
-$('.navbar-nav>li>a').on('click', function(){
-    $('.navbar-collapse').collapse('hide');
+$(document).ready(function(){
+$('.owl-carousel').owlCarousel({
+    loop:false,
+    margin:10,
+    nav:false,
+    responsive:{
+        0:{
+            items:5
+        },
+        600:{
+            items:5
+        },
+        1000:{
+            items:5
+        }
+    }
+});
 });
 </script>
+@endif
+@endif
+
+@if(Route::currentRouteName('review'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -122,13 +153,15 @@ $('.owl-carousel').owlCarousel({
         },
         1000:{
             items:10
-        }
+        },
     }
 });
 });
 </script>
+@endif
 
-<script type="text/javascript">
+@if(Route::currentRouteName('laporan'))
+<script>
 /*global $*/
 	$(document).on('click', '.delete', function(){
         var id = $(this).data('id');
@@ -152,7 +185,8 @@ $('.owl-carousel').owlCarousel({
         });
     });
 </script>
+@endif
 
-
+@endauth
 </body>
 </html>

@@ -47,32 +47,6 @@ class TutorController extends Controller
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($username,  Request $request)
     {
         $user = User::where('username' , $username)->first();
@@ -90,19 +64,12 @@ class TutorController extends Controller
         return back()->with('status','Laporan Terkirim');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($username)
+      public function show($username)
     {
         $user = User::whereUsername($username)->first();
         $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
         $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
         $rate = Rate::with('user')->where('rateable_id', Auth::user()->id)->first();
-        $voter=User::has('rate')->get();
         $sum = Rate::where('user_id', $user->id)->sum('point');
         
         // $oldrate =  number_format($avgrate, 1, '.', '');
@@ -110,52 +77,35 @@ class TutorController extends Controller
             abort(404);
         }
         elseif($user->role == 'Tutor') {
-            return view('tutor.show' , compact('user' , 'sum', 'rate', 'voter' , 'laporans' , 'komentars'));
+            return view('tutor.show' , compact('user' , 'sum', 'rate', 'laporans' , 'komentars'));
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function review()
     {
-        //
+        $user = Auth::user();
+        $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        $sum = Rate::where('user_id', Auth::user()->id)->sum('point');
+        $rates = Rate::where('user_id', Auth::user()->id)->orderBy('created_at' , 'desc')->limit(10)->get();
+        return view('tutor.review' , compact( 'rates','user','sum' , 'laporans'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         $laporan = Laporan::findOrFail($id);
         $laporan->delete();
-        return back()->with('status' , 'Laporan telah dihapus');
+        return redirect('tutor/'.Auth::user()->username.'')->with('status' , 'Laporan telah dihapus');
     }
     public function profile()
     {
         $user = Auth::user();
-        return view('tutor.profile', compact('user' ))->with('info' , Auth::user()->profile);   
+        $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        $sum = Rate::where('user_id', Auth::user()->id)->sum('point');
+        return view('tutor.profile', compact('user', 'sum' , 'laporans'))->with('info' , Auth::user()->profile);   
     }
     public function profileUpdate(Request $request)
     {
+        
         Auth::user()->profile()->update([
         'note' => $request->note,
         ]);
@@ -177,15 +127,28 @@ class TutorController extends Controller
     
    if($users->isNotEmpty())   { 
     foreach ($users as $user){
-    
-    $outputbody .=  '<a href="/murid/'.$user->username.'"><div class="media">
-  <img class="mr-3" src="'.$user->gravatar.'"  width="50" alt="Generic placeholder image">
+    if(!count($user->tutors)){
+    $outputbody .=  '<div class="media">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'" width="40" height="40" alt="Generic placeholder image">
   <div class="media-body">
-    <h5 class="mt-0">'.$user->name.'</h5>
-    '.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'
+    <a href="/siswa/'.$user->username.'"><p class="mt-0 mb-0">'.$user->name.'</p></a>
+    <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>
     </div>
-</div></a>
-<hr>';  
+
+<a type="submit" href="/siswa/'.$user->id.'/follow" class="btn btn-light btn-sm"><i class="fa fa-user-plus"></i></a>
+</div>
+<hr>'; }
+elseif(count($user->tutors)){
+    $outputbody .=  '<div class="media">
+  <img class="mr-3 rounded-circle border-avatar" src="'.$user->gravatar.'" width="40" height="40" alt="Generic placeholder image">
+  <div class="media-body">
+    <a href="/murid/'.$user->username.'"><p class="mt-0 mb-0">'.$user->name.'</p></a>
+    <small class="mt-0 ">'.$user->username.' | '.$user->created_at->diffForHumans().' | '.$user->role.'</small>
+    </div>
+
+<a type="submit" href="/siswa/'.$user->id.'/unfollow" class="btn btn-light btn-sm"><i class="fa fa-user-times"></i></a>
+</div>
+<hr>'; }
     }  
 
     echo $outputhead; 
@@ -199,6 +162,8 @@ class TutorController extends Controller
  
  public function telusuri(){
         $user = Auth::user();
-        return view('tutor.telusuri', compact('user'));
+        $laporans = Laporan::where('user_id' , $user->id)->orderBy('created_at' , 'desc')->limit(5)->get();
+        $sum = Rate::where('user_id', Auth::user()->id)->sum('point');
+        return view('tutor.telusuri', compact('user', 'sum', 'laporans'));
     }  
 }

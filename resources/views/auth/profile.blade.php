@@ -13,12 +13,19 @@
 		@elseif($user->role == 'Tutor')
 		<small>{{$user->role}} &#9733; </small>
 		@endif
-		@if(Auth::user()->id == $user->id)  
+		@if(Auth::user()->id == $user->id) 
+<div class="btn-group btn-group-sm mx-auto btn-group-justified" role="group" aria-label="Basic example">
 @if(Auth::user()->role == 'Murid')  
-<a href="{{url('murid/profile/edit')}}"><button type="button" class="btn btn-light btn-sm "><i class="fa fa-gear"></i> Pengaturan</button></a>
+<a href="{{url('siswa/profile/edit')}}" type="button" class="btn btn-light btn-sm" ><i class="fa fa-gear"></i> Pengaturan</a>
+<a href="{{url('siswa/telusuri/tutor')}}" type="button" class="btn btn-light btn-sm" ><i class="fa fa-search"></i> Telusuri</a>
+
 @elseif(Auth::user()->role == 'Tutor') 
-<a href="{{url('tutor/profile/edit')}}"><button type="button" class="btn btn-light btn-sm "><i class="fa fa-gear"></i> Pengaturan</button></a>
+<a href="{{url('tutor/profile/edit')}}" type="button" class="btn btn-light btn-sm" ><i class="fa fa-gear"></i> Pengaturan</a>
+ <a href="{{url('tutor/telusuri/siswa')}}" type="button" class="btn btn-light btn-sm"  ><i class="fa fa-search"></i> Telusuri</a>
+ <a href="{{url('tutor/review')}}" type="button" class="btn btn-light btn-sm"  ><i class="fa fa-star"></i> Review</a>
+       
 @endif
+</div>
 @endif
 </div>
 <hr class="mt-2 mb-2">
