@@ -26,3 +26,4 @@
 <hr>
 @endforeach
 </div></div>
+ {{ $users->links() }}

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Profile;
+use DB;
 use App\Laporan;
+use App\Info;
 use App\Komentar;
 use App\Rate;
 use Illuminate\Http\Request;
@@ -17,30 +19,45 @@ use App\Events\registerProfile;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function infotutor(Request $request)
+    {
+        DB::table('infos')
+            ->where('untuk', 'Tutor')
+            ->update(['isi' => nl2br($request->isi)]);
+       return back()->with('status','Info diumumkan');
+    }
+    public function infomurid(Request $request)
+    {
+        DB::table('infos')
+            ->where('untuk', 'Siswa')
+            ->update(['isi' => nl2br($request->isi)]);
+       return back()->with('status','Info diumumkan');
+    }
     public function review(){
-        $users = User::where('role', 1)->orderBy('created_at' , 'desc')->get();
-        $rates = Rate::orderBy('created_at' , 'desc')->limit(10)->get();
-        $laporans = Laporan::orderBy('created_at' , 'desc')->limit(10)->get();
-        return view('admin.review' , compact('users' , 'rates', 'laporans'));
+        $users = User::where('role', 1)->orderBy('created_at' , 'desc')->simplePaginate(5);
+        $rates = Rate::orderBy('created_at' , 'desc')->simplePaginate(5);
+        $laporans = Laporan::orderBy('created_at' , 'desc')->simplePaginate(5);
+        $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
+        $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
+        return view('admin.review' , compact('users' , 'rates', 'laporans', 'infotutor', 'infomurid'));
     }
     
     public function feeds()
     {
         $users = User::where('role', 'Tutor')->orderBy('created_at' , 'desc')->get();
-        $laporans = Laporan::orderBy('created_at' , 'desc')->limit(10)->get();
-        return view('admin.feeds' , compact('users' , 'laporans'));
+        $laporans = Laporan::orderBy('created_at' , 'desc')->simplePaginate(8);
+        $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
+        $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
+        return view('admin.feeds' , compact('users' , 'laporans', 'infotutor', 'infomurid'));
     }
     
     public function index()
     {
-        $users = User::orderBy('created_at' , 'desc')->get();
+        $users = User::orderBy('created_at' , 'desc')->simplePaginate(5);
         $laporans = Laporan::orderBy('created_at' , 'desc')->get();
-        return view('admin.user' , compact('users' , 'laporans' ));
+        $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
+        $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
+        return view('admin.user' , compact('users' , 'laporans', 'infotutor', 'infomurid'));
     }
 
 
@@ -106,12 +123,14 @@ class UserController extends Controller
     $laporan = Laporan::whereId($id)->first();
     $user = Auth::user();
     $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
+    $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
+    $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
         // dd($komentars);
     if (empty($laporan)) {
             abort(404);
         }
     else{
-        return view('layouts.laporan' , compact('laporan' , 'komentars', 'user' ));  
+        return view('layouts.laporan' , compact('laporan' , 'komentars', 'user', 'infotutor', 'infomurid' ));  
     }
       
     }

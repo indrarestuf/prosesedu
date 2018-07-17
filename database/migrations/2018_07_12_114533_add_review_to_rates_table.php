@@ -14,7 +14,7 @@ class AddReviewToRatesTable extends Migration
     public function up()
     {
         Schema::table('rates', function (Blueprint $table) {
-            $table->text('review');
+            $table->text('review')->nullable();
         });
     }
 

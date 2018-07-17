@@ -20,5 +20,5 @@
 </div>
 <hr>
 @endforeach
-
 </div>
+ {{ $users->links() }}

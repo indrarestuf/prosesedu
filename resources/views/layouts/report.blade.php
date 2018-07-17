@@ -57,9 +57,10 @@ Anda akan menghapus Laporan untuk {{$laporan->murid->name}}?
             <div class="chip mapel">{{$laporan->mapel}}</div> 
 
  <hr class="mb-1 mt-1">
-@if(Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id)
-  <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light mb-1  btn-block" >{{ $komentars->count()}} komentar, Lihat selengkapnya</a>
+@if(Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin')
+  <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light mb-1  btn-block" >{{ $komentars->where('laporan_id', $laporan->id)->count()}} komentar, Lihat selengkapnya</a>
  @endif
  </div>
  @endforeach
+ {{ $laporans->links() }}
  @endif

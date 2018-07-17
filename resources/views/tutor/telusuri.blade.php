@@ -27,7 +27,7 @@
     <a href="{{url('/siswa/'.$murid->username.'')}}"><p class="mt-0 mb-0">{{$murid->name}}</p></a>
     <small class="mt-0 ">{{$murid->username}} | {{$murid->created_at->diffForHumans()}} |{{$murid->role}}</small>
     </div>
-<a type="submit" href="{{route('unfollow', $murid->id)}}" class="btn btn-light btn-sm"><i class="fa fa-user-times"></i></a>
+<a type="submit" href="{{route('unfollow', $murid->id)}}" class="btn btn-outline btn-sm"><i class="fa fa-user-times"></i></a>
 </div>
 <hr>
 

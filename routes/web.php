@@ -29,6 +29,8 @@ Route::name('admin.')->group(function () {
 	Route::get('/admin/user','UserController@index')->name('userlist');
 	Route::get('/admin/user/feeds','UserController@feeds')->name('feeds');
 	Route::get('/admin/user/review','UserController@review')->name('review');
+	Route::post('/admin/user/infotutor','UserController@infotutor')->name('infotutor');
+	Route::post('/admin/user/infomurid','UserController@infomurid')->name('infomurid');
 });
 });
 
@@ -73,4 +75,5 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/siswa/{id}/unfollow', 'TutorController@unFollowUser')->name('unfollow');
     Route::get('/laporan/{id}', 'UserController@show')->name('laporan');
     Route::post('/laporan/komentar', 'UserController@komentar')->name('komentar');
+    Route::post('load/{username}/laporan','TutorController@loadlaporan' )->name('load-laporan');
 });

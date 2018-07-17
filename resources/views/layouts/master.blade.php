@@ -13,6 +13,7 @@
     <!-- Scripts -->
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -36,7 +37,25 @@
         <span>© Problem Solver Society 2018.</span>
       </div>
 </footer>
+ <div id="summernote">hello</div>   
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
+    <script>
+      $('.editor').summernote({
+         height: 100,                
+  minHeight: null,             
+  maxHeight: null,            
+  focus: true , 
+  toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold']],
+    ['fontsize', ['fontsize']],
+    ['para', ['ul']],
+    ['insert', ['picture', 'link']],
+    ]
+      });
+    </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script src="{{ asset('js/style.js') }}" defer></script>
@@ -48,7 +67,7 @@ $(function () {
 });
 </script>
 @auth
-@if(Route::currentRouteName('tutor.telusuri'))
+@if(Request::is('tutor/telusuri/siswa'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -69,7 +88,7 @@ $(document).ready(function(){
 </script>
 @endif
 
-@if(Route::currentRouteName('murid.telusuri'))
+@if(Request::is('siswa/telusuri/tutor'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -90,7 +109,7 @@ $(document).ready(function(){
 </script>
 @endif
 
-@if(Route::currentRouteName('admin.telusuri'))
+@if(Request::is('admin/user'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -110,33 +129,8 @@ $(document).ready(function(){
 }); 
 </script>
 @endif
-@if(Auth::user()->role == 'Tutor' || Auth::user()->role == 'Murid'  )
-@if(Route::currentRouteName('tutor.profile', $user->username) || Route::currentRouteName('murid.profile', $user->username))
-<script>
-/*global $*/
-$(document).ready(function(){
-$('.owl-carousel').owlCarousel({
-    loop:false,
-    margin:10,
-    nav:false,
-    responsive:{
-        0:{
-            items:5
-        },
-        600:{
-            items:5
-        },
-        1000:{
-            items:5
-        }
-    }
-});
-});
-</script>
-@endif
-@endif
 
-@if(Route::currentRouteName('review'))
+@if(Request::is('admin/user/review'))
 <script>
 /*global $*/
 $(document).ready(function(){
@@ -160,7 +154,7 @@ $('.owl-carousel').owlCarousel({
 </script>
 @endif
 
-@if(Route::currentRouteName('laporan'))
+@if(Request::is('laporan'))
 <script>
 /*global $*/
 	$(document).on('click', '.delete', function(){
@@ -187,6 +181,56 @@ $('.owl-carousel').owlCarousel({
 </script>
 @endif
 
+@if(Request::is('tutor/*') || Request::is('siswa/*'))
+<script>
+/*global $*/
+$(document).ready(function(){
+$('.owl-carousel').owlCarousel({
+    loop:false,
+    margin:10,
+    nav:false,
+    responsive:{
+        0:{
+            items:5
+        },
+        600:{
+            items:5
+        },
+        1000:{
+            items:5
+        }
+    }
+});
+});
+</script>
+<script>
+/*global $*/
+$(document).ready(function(){
+   $(document).on('click','#btn-more',function(){
+       var id = $(this).data('id');
+       $("#btn-more").html("sedang memuat <i class='fa  fa-circle-o-notch fa-spin'></i> ");
+       $.ajax({
+           url : '{{ route("load-laporan", $user->username) }}',
+           method : "POST",
+           data : {id:id, _token:"{{csrf_token()}}"},
+           dataType : "html",
+           success : function (data)
+           {
+              if(data != '') 
+              {
+                  $('#remove-row').remove();
+                  $('#load-data').append(data);
+              }
+              else
+              {
+                  $('#btn-more').remove();
+              }
+           }
+       });
+   });  
+}); 
+</script>
+@endif
 @endauth
 </body>
 </html>

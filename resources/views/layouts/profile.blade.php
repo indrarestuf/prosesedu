@@ -9,7 +9,9 @@
 		<b>{{$user->name}}</b>
     <br>
 		@if($user->role == 'Murid')
+		@if($user->profile->kelas != NULL)
 		<small>Kelas {{$user->profile->kelas}}&nbsp; &bull; &nbsp;{{$user->profile->sekolah}}</small>
+		@endif
 		@elseif($user->role == 'Tutor')
 		<small>{{$user->role}} &#9733; {{$sum}} </small>
 		@endif
