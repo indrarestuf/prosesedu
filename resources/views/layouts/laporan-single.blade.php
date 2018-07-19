@@ -58,7 +58,7 @@ Anda akan menghapus laporan untuk {{$laporan->murid->name}}?
 <div class="input-group mb-3">
   <textarea type="text" style="height:35px" id="isi"  class="form-control " name="isi"  aria-label="komentar" aria-describedby="basic-addon2" placeholder="Beri Tanggapan" {{Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin' ? '' : 'disabled'}} ></textarea>
   <div class="input-group-append">
-    <button class="btn  btn-sm btn-primary komentar" {{Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id  ? '' : 'disabled'}}  type="submit"><i class="fa fa-send"></i></button>
+    <button class="btn  btn-sm btn-primary komentar" {{Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin' ? '' : 'disabled'}}  type="submit"><i class="fa fa-send"></i></button>
   </div>
  </div>
  </form>

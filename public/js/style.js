@@ -96,7 +96,7 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the country names in the world:*/
-var mapel = ["Fisika", "Matematika", "Biologi", "Kimia" , "IPA"]
+var mapel = ["Fisika", "Matematika", "Biologi", "Kimia" , "IPA" , "Bahasa Inggris" ,"Bahasa Indonesia" , "IPS" , "Geografi" , "Ekonomi" , "Sosiologi" , "Sejarah"]
 /*initiate the autocomplete function on the "mapel" element, and pass along the mapel array as possible autocomplete values:*/
 autocomplete(document.getElementById("mapel"), mapel);
 

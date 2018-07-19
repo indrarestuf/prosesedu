@@ -4,7 +4,9 @@
      <p class="text-muted mb-0">Belum ada Laporan</p>
      </div>
  @else
- @foreach($laporans as $laporan)
+
+@foreach($laporans as $laporan)
+@if(Auth::user()->role == 'Murid' && Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin')
         <div class="my-1 pl-3 pr-3 pb-1 pt-1 bg-white rounded box-shadow">
             <div class="media pt-3 ">
             <img src="{{ $laporan->user->gravatar }}" width="40" height="40" alt="" class="mr-2 rounded-circle  border-avatar">
@@ -61,6 +63,8 @@ Anda akan menghapus Laporan untuk {{$laporan->murid->name}}?
   <a href="{{url('/laporan/'.$laporan->id.'')}}" class="btn btn-light mb-1  btn-block" >{{ $komentars->where('laporan_id', $laporan->id)->count()}} komentar, Lihat selengkapnya</a>
  @endif
  </div>
- @endforeach
- {{ $laporans->links() }}
  @endif
+ @endforeach
+
+{{ $laporans->links() }}
+@endif

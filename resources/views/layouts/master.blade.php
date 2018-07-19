@@ -7,8 +7,17 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @if(Request::is('tutor/*') || Request::is('siswa/*'))
+    <title>{{$user->name}}</title>
+    @else
+<title>Problem Solver Society</title>
+@endif
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Bimbingan belajar untuk persiapan ujian sekolah, ujian masuk sekolah & PTN dan Olimpiade Sains Nasional">
+		<link rel="icon" 
+      type="image/png" 
+      href="{{asset('img/logo.png')}}">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <!-- Scripts -->
     
@@ -42,6 +51,7 @@
      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
     <script>
+    /*global $*/
       $('.editor').summernote({
          height: 100,                
   minHeight: null,             
@@ -154,7 +164,7 @@ $('.owl-carousel').owlCarousel({
 </script>
 @endif
 
-@if(Request::is('laporan'))
+@if(Request::is('laporan/*'))
 <script>
 /*global $*/
 	$(document).on('click', '.delete', function(){
@@ -181,7 +191,7 @@ $('.owl-carousel').owlCarousel({
 </script>
 @endif
 
-@if(Request::is('tutor/*') || Request::is('siswa/*'))
+@if(Request::is('tutor/*') || Request::is('siswa/*') || Request::is('laporan/*'))
 <script>
 /*global $*/
 $(document).ready(function(){

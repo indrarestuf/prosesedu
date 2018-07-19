@@ -15,6 +15,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if ($errors->any())
+          @foreach ($errors->all() as $error)
+    <div class="alert alert-danger mb-0 mt-1">
+           {{ $error }}
+    </div>
+     @endforeach
+@endif
    @include('layouts.reportform') 
     @include('layouts.report')
         </div>

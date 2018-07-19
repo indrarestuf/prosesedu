@@ -1,6 +1,9 @@
  <div class="my-1 p-3 bg-white rounded shadow"> 
  <p>Ubah Profile</p>
  <hr class="mt-1 mb-1">
+ <div class="alert alert-primary" role="alert">
+  Foto Profil bisa diganti melalui pihak ketiga di situs <a href="http://id.gravatar.com/" target="_blank" class="alert-link">Gravatar</a>.
+</div>
 @if(Auth::user()->role == 'Murid')
 <form role="form" action="{{ route('murid.profileupdate') }}" method="POST">
     {{ csrf_field() }}

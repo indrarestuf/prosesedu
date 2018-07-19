@@ -50,6 +50,12 @@ class TutorController extends Controller
 
     public function store($username,  Request $request)
     {
+        $validatedData = $request->validate([
+        'isi' => 'required|max:255',
+        'mapel' => 'required|max:50',
+        'nilai_afektif' => 'required|numeric|max:3',
+        'nilai_kognitif' => 'required|numeric|max:3',
+        ]);
         $user = User::where('username' , $username)->first();
         $laporan=new Laporan;
         $laporan->user_id = \Auth::user()->id;
@@ -112,14 +118,17 @@ class TutorController extends Controller
     }
     public function profileUpdate(Request $request)
     {
-        
+         $validatedData = $request->validate([
+        'note' => 'required|max:255',
+    ]);
         Auth::user()->profile()->update([
         'note' => $request->note,
         ]);
+        
        return back()->with('status','Data Berhasil Disimpan');
     }
     
-    public function search(Request $request){
+    public function search(Request$request){
     $search = $request->id;
     $users = User::where('name','LIKE',"%{$search}%")->where('role' , 2)
                            ->get();  

@@ -159,6 +159,13 @@ class MuridController extends Controller
     
     public function profileUpdate(Request $request)
     {
+        $validatedData = $request->validate([
+        'kelas' => 'required|numeric|max:2',
+        'sekolah' => 'required|max:150',
+        'ortu' => 'required|numeric|max:150',
+        'note' => 'required|max:255',
+        ]);
+        
         Auth::user()->profile()->update([
         'kelas' => $request->kelas,
         'sekolah' => $request->sekolah,
