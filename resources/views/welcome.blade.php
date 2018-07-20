@@ -77,7 +77,7 @@ body,html {
                                   @endauth
     @guest
                <a class="btn btn-flat btn-sm btn-outline-light "  href="{{ route('login') }}">
-            <i class="fa fa-sign-in"></i>  Masuk
+            <i class="fas fa-sign-in-alt"></i>  Masuk
             </a>
       @endguest
 </ul>
@@ -131,113 +131,30 @@ body,html {
                 Bimbel Proses telah berhasil membimbing para siswa untuk berprestasi lebih di bidang Olimpiade Sains atau berhasil masuk di Kampus-kampus ternama.            
           </small>
           </div>
+          <br>
           <div class="row">
-            <div class="col-md-8 offset-md-2 col-sm-12">
-              <br>
-           <div class="owl-carousel owl-theme">
-
-
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop " >Irfan Urane Aziz<br> Medali Emas OSN Matematika SMP</p>
-    <small class="text-muted smartphone" >Irfan Urane Aziz<br> Medali Emas OSN Matematika SMP</small>
-    </div>
-    </div>
-  </div>
-</div>
+            <div class="col-md-6 col-sm-12">
+              
+<ul class="list-group list-group-flush">
+  <li class="list-group-item"><img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+    <small class="text-muted " >Irfan Urane Aziz | Medali Emas OSN Matematika SMP</small></li>
+  <li class="list-group-item"> <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+  <small class="text-muted" >Timoty Jacob | Medali Emas OSN Matematika SMA</small></li>
+  <li class="list-group-item">  <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+  <small class="text-muted" >Andrew Wiratmaja | Medali Emas OSN Matematika SMA</small></li>
+</ul>
 </div>
 
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop" >Timoty Jacob<br> Medali Emas OSN Matematika SMA</p>
-    <small class="text-muted smartphone" >Timoty Jacob<br> Medali Emas OSN Matematika SMA</small>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop" >Andrew Wiratmaja<br> Medali Emas OSN Matematika SMA</p>
-    <small class="text-muted smartphone" >Andrew Wiratmaja<br> Medali Emas OSN Matematika SMA</small>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop" >Gifari<br> Tokyo Institute</p>
-    <small class="text-muted smartphone" >Gifari<br> Tokyo Institute</small>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop" >M. Lukman <br>University of Southampton</p>
-    <small class="text-muted smartphone" >M. Lukman <br>University of Southampton</small>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-           
-<div class="item">            
-<div class="card">
-  <div class="card-body p-1">
-    <div class="row p-0">
-    <div class="col-3 pr-0">
-    <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
-    </div>
-     <div class="col-9 pl-2 pt-3">
-    <p class="text-muted desktop" >Sri Wahyuni Teknik<br>Pertambangan ITB</p>
-    <small class="text-muted smartphone" >Sri Wahyuni Teknik<br>Pertambangan ITB</small>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-
-            </div>
-            </div>
-            </div>
+  <div class="col-md-6 col-sm-12">
+    <ul class="list-group list-group-flush">
+  <li class="list-group-item"><img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+  <small class="text-muted" >Gifari | Tokyo Institute</small></li>
+  <li class="list-group-item"> <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+  <small class="text-muted" >M. Lukman | University of Southampton</small></li>
+  <li class="list-group-item">  <img class="rounded-circle border-avatar" src="{{asset('img/avatar.png')}}"  width="32" alt="Generic placeholder image" >
+  <small class="text-muted" >Sri Wahyuni Teknik|  Pertambangan ITB</small></li>
+</ul>
+</div></div>
             </div>
       </section>
       
@@ -353,7 +270,7 @@ body,html {
         
        <section class="jumbotron m-0 p-0" style=" border-radius:0;">
           <div class="col-md-12 p-0">
-     <div class="map-responsive"><iframe width="1200" height="300" frameborder="0" style="border:0" id="gmap_canvas" src="https://maps.google.com/maps?q=problem%20solver%20society&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
+     <div class="map-responsive"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15865.97348767127!2d106.8863901!3d-6.1984517!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x73b57b1e9dfe9b24!2sBimbingan+Belajar+Proses+(Problem+Solver+Society)!5e0!3m2!1sen!2sid!4v1532070644798" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
       </div>
       </section>
       
@@ -428,7 +345,7 @@ $('.owl-carousel').owlCarousel({
             items:1
         },
         1000:{
-            items:2
+            items:1
         },
     }
 });

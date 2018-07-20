@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Http\Requests\errorReview;
 
 class RateController extends Controller
 {
@@ -28,7 +29,7 @@ class RateController extends Controller
         }
     }
     
-    public function create($username , Request $request)
+    public function create($username , errorReview $request)
     {  
         $user = User::whereUsername($username)->first();
         $rate= Rate::Create([
@@ -41,7 +42,7 @@ class RateController extends Controller
         
         return back()->with('status','Review terkirim');
     }
-    public function update($username , Request $request)
+    public function update($username , errorReview $request)
     {  
         $user = User::whereUsername($username)->first();
         Rate::where('rateable_id', Auth::user()->id)->first()

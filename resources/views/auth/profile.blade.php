@@ -13,7 +13,7 @@
 		<small>Kelas {{$user->profile->kelas}}&nbsp; &bull; &nbsp;{{$user->profile->sekolah}}</small>
 		@endif
 		@elseif($user->role == 'Tutor')
-		<small>{{$user->role}} &#9733; </small>
+		<small>{{$user->role}} &#9733; {{$sum}}</small>
 		@endif
 		@if(Auth::user()->id == $user->id) 
 <div class="btn-group btn-group-sm mx-auto btn-group-justified" role="group" aria-label="Basic example">

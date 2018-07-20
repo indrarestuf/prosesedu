@@ -18,7 +18,7 @@ class CreateLaporansTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('murid_id');
             $table->text('isi');
-            $table->tinyInteger('nilai_afektif');
+            $table->string('nilai_afektif');
             $table->tinyInteger('nilai_kognitif');
             $table->tinyInteger('kelas');
             $table->tinyInteger('mapel');

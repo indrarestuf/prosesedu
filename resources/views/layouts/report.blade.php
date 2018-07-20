@@ -8,7 +8,7 @@
 @foreach($laporans as $laporan)
 @if(Auth::user()->role == 'Murid' && Auth::user()->id == $laporan->murid_id || Auth::user()->id == $laporan->user_id || Auth::user()->role == 'Admin')
         <div class="my-1 pl-3 pr-3 pb-1 pt-1 bg-white rounded box-shadow">
-            <div class="media pt-3 ">
+            <div class="media pt-3 break">
             <img src="{{ $laporan->user->gravatar }}" width="40" height="40" alt="" class="mr-2 rounded-circle  border-avatar">
             <div class="media-body">
               <p class="mt-0 mb-0"><strong class=" text-gray-dark">{{ $laporan->user->name }} &blacktriangleright; {{ $laporan->murid->name }} </strong></p>

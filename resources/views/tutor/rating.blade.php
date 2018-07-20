@@ -1,3 +1,10 @@
+                    @if ($errors->any())
+          @foreach ($errors->all() as $error)
+    <div class="alert alert-danger mb-0 mt-1">
+           {{ $error }}
+    </div>
+     @endforeach
+@endif
 @if (Auth::user()->role == 'Murid') 
 <div class="my-1 p-3 bg-white rounded shadow">
 @if (!count($rate)) 

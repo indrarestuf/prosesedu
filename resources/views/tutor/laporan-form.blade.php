@@ -11,7 +11,15 @@
 </div>
 </div>
 <div class="input-group mb-1">
-<input type="text"  class="form-control" name="nilai_afektif" placeholder="Nilai Afektif" required >
+<div class="input-group-prepend">
+        <select class="form-control custom-select" id="" name="nilai_afektif" required >
+      <option value="">Nilai Afektif</option>
+      <option value="A">A | Amat Baik</option>
+      <option value="B">B | Baik</option>
+      <option value="C">C | Cukup Baik</option>
+      <option value="D">D | Kurang Baik</option>
+    </select>
+</div>
 <input type="text"  class="form-control" name="nilai_kognitif" placeholder="Nilai Kognitif" required >
 </div>
   <div class="input-group mb-1">

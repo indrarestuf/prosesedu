@@ -13,6 +13,8 @@ use App\Rate;
 use Hash;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use App\Http\Requests\errorLaporan;
+use App\Http\Requests\errorProfile;
 
 class TutorController extends Controller
 {
@@ -48,14 +50,9 @@ class TutorController extends Controller
     }
 
 
-    public function store($username,  Request $request)
+    public function store($username,  errorLaporan $request)
     {
-        $validatedData = $request->validate([
-        'isi' => 'required|max:255',
-        'mapel' => 'required|max:50',
-        'nilai_afektif' => 'required|numeric|max:3',
-        'nilai_kognitif' => 'required|numeric|max:3',
-        ]);
+    
         $user = User::where('username' , $username)->first();
         $laporan=new Laporan;
         $laporan->user_id = \Auth::user()->id;
@@ -116,7 +113,7 @@ class TutorController extends Controller
         $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
         return view('tutor.profile', compact('user', 'sum' , 'laporans', 'infotutor'))->with('info' , Auth::user()->profile);   
     }
-    public function profileUpdate(Request $request)
+    public function profileUpdate(errorProfile $request)
     {
          $validatedData = $request->validate([
         'note' => 'required|max:255',
@@ -128,7 +125,7 @@ class TutorController extends Controller
        return back()->with('status','Data Berhasil Disimpan');
     }
     
-    public function search(Request$request){
+    public function search(Request $request){
     $search = $request->id;
     $users = User::where('name','LIKE',"%{$search}%")->where('role' , 2)
                            ->get();  

@@ -123,6 +123,8 @@ class UserController extends Controller
     $laporan = Laporan::whereId($id)->first();
     $user = Auth::user();
     $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
+    $rate = Rate::with('user')->where('rateable_id', Auth::user()->id)->first();
+        $sum = Rate::where('user_id', $user->id)->sum('point');
     $infotutor= Info::with('user')->where('untuk', 'Tutor')->first();
     $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
         // dd($komentars);
@@ -130,40 +132,11 @@ class UserController extends Controller
             abort(404);
         }
     else{
-        return view('layouts.laporan' , compact('laporan' , 'komentars', 'user', 'infotutor', 'infomurid' ));  
+        return view('layouts.laporan' , compact('laporan' , 'komentars', 'user', 'infotutor', 'infomurid','sum' ));  
     }
       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = User::findOrFail($id);
