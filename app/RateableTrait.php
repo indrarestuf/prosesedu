@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 trait RateableTrait
 {
-
-
-    public function rates()
-    {
-        return $this->morphMany(rate::class, 'rateable');
-    }
-
     public function rateIt(Request $request)
     {
        $this->rates()->where('user_id',Auth::user()->id)->update([

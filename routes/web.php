@@ -15,6 +15,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/tryout/soal/buat', function () {
+    return view('tryout.panitia.soal-buat');
+});
+
+Route::get('/tryout/soal','SoalController@index')->name('soallist');
+Route::get('/tryout/soal/buat','SoalController@buat')->name('soalbuat');
+Route::get('/json-pelajarans','SoalController@pelajarans');
+Route::post('/tryout/soal/create','SoalController@create');
+Route::delete('/tryout/soal/delete/{id}','SoalController@destroy')->name('soaldelete');
+
+Route::get('/tryout/soal/smp/{mapel}','SoalController@soalsmp');
+Route::get('/tryout/soal/sma/{mapel}','SoalController@soalsma');
+Route::get('/tryout/soal/ptn/{mapel}','SoalController@soalptn');
+
+Route::get('/tryout/soal/edit/{id}','SoalController@edit')->name('soalperbarui');
+Route::post('/tryout/soal/update/{idi}','SoalController@update')->name('soalupdate');
+
+Route::get('/tryout/smp/{mapel}','SoalController@tosmp');
+Route::get('/tryout/sma/{mapel}','SoalController@tosma');
+Route::get('/tryout/ptn/{mapel}','SoalController@toptn');
+
+Route::post('/jawab','SoalController@jawab')->name('jawab');
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');

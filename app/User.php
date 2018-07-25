@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Laporan')->withTimestamps();
     }
     
+      public function jawabans()
+    {
+        return $this->hasMany('App\Jawaban')->withTimestamps();
+    }
+    
     public function infos()
     {
         return $this->belongsToMany('App\Info')->withTimestamps();
