@@ -8,7 +8,7 @@
      
 @foreach($soals as $soal)
 <div class="my-1 p-3 bg-white rounded box-shadow">
-<div class="card mb-2"><div class="card-header">
+<div class="card mb-2" ><div class="card-header">
     Nomor {{ ($soals ->currentpage()-1) * $soals ->perpage() + $loop->index + 1 }} / {{$soals->lastPage()}}
     <button class="btn btn-primary float-right">Selesai</button>
   </div>

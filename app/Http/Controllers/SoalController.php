@@ -146,4 +146,8 @@ class SoalController extends Controller
             return response()->json(['status'=>'success','message'=>'updated']);
         }
     }
+    
+    public function hasil(){
+   
+    }
 }
