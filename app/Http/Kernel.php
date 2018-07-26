@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminRole::class,
         'tutor' => \App\Http\Middleware\Tutor::class,
         'murid' => \App\Http\Middleware\Murid::class,
+        \App\Http\Middleware\EncryptCookies::class
     ];
 }

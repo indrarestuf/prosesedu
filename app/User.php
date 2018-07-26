@@ -36,7 +36,7 @@ class User extends Authenticatable
     
       public function jawabans()
     {
-        return $this->hasMany('App\Jawaban')->withTimestamps();
+        return $this->belongsToMany('App\Jawaban')->withTimestamps();
     }
     
     public function infos()
@@ -51,7 +51,7 @@ class User extends Authenticatable
     public function getGravatarAttribute()
     {
     $hash = md5(strtolower(trim($this->attributes['email'])));
-    return "http://www.gravatar.com/avatar/$hash?d=robohash&f=y";
+    return "https://www.gravatar.com/avatar/$hash?d=robohash&f=y";
     }
     
     public function getRoleAttribute()

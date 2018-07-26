@@ -217,6 +217,12 @@ $(function () {
 
 <script type="text/javascript">
 /*global $*/
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
     $('#level').on('change', function(e){
         console.log(e);
         var level_id = e.target.value;
@@ -234,6 +240,13 @@ $(function () {
 
 <script type="text/javascript">
 /*global $*/
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(function() {
     $('body').on('click', '.pagination a', function(e) {
         e.preventDefault();
@@ -271,7 +284,8 @@ $(function() {
 	var csrfToken = '{{csrf_token()}}';
 	var userId = '{{Auth::user()->id}}';
 	var pilihan = $(".pilihan:checked").val();
-	$.post("{{route('jawab')}}", {pilihan:pilihan,userId:userId,soalId:soalId,_token:csrfToken}, function(data){
+	var mapelId = '{{$pelajaran->id}}';
+	$.post("{{route('jawab', $pelajaran->mapel)}}", {pilihan:pilihan,userId:userId,soalId:soalId,_token:csrfToken,mapelId:mapelId}, function(data){
 	console.log(data);
 	});
 	};

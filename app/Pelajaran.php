@@ -13,4 +13,9 @@ class Pelajaran extends Model
     {
         return $this->hasMany('App\Soal');
     }
+    
+    public function jawaban()
+    {
+        return $this->hasMany('App\Jawaban');
+    }
 }

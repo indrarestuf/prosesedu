@@ -36,7 +36,9 @@ Route::get('/tryout/smp/{mapel}','SoalController@tosmp');
 Route::get('/tryout/sma/{mapel}','SoalController@tosma');
 Route::get('/tryout/ptn/{mapel}','SoalController@toptn');
 
-Route::post('/jawab','SoalController@jawab')->name('jawab');
+Route::get('/tryout/smp/{mapel}/hasil','SoalController@hasiltosmp')->name('hasiltosmp');
+
+Route::post('/jawab/{mapel}','SoalController@jawab')->name('jawab');
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');

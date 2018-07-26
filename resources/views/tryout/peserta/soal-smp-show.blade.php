@@ -15,7 +15,7 @@
   <div class="card-body">
 {!!$soal->pertanyaan!!}
   </div></div>
-@if(!count($soal->jawaban))
+@if (!count($soal->jawaban)) 
 <form>
 <div class="card mb-2"><div class="card-body"><div class="custom-control custom-radio">
   <input onclick="jawab('{{$soal->id}}',this)" type="radio" id="A" value="A"  name="pilihan" class="custom-control-input pilihan" >
@@ -37,8 +37,8 @@
   <label class="custom-control-label" for="D">{{$soal->D}}</label>
 </div></div></div>
 </form>
-@elseif(count($soal->jawaban))
-<form>
+@else
+<form class="update">
 <div class="card mb-2"><div class="card-body"><div class="custom-control custom-radio">
   <input onclick="jawab('{{$soal->id}}',this)" type="radio" id="A" value="A"  name="pilihan" class="custom-control-input pilihan" {{$soal->jawaban->pilihan == 'A' ? 'checked':''}}>
   <label class="custom-control-label" for="A">{{$soal->A}}</label>
