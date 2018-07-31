@@ -20,11 +20,11 @@ class CreateSoalsTable extends Migration
             $table->foreign('level_id')->references('id')->on('levels');
             $table->unsignedInteger('pelajaran_id');
             $table->foreign('pelajaran_id')->references('id')->on('pelajarans');
-            $table->string('A');
-            $table->string('B');
-            $table->string('C');
-            $table->string('D');
-            $table->string('E')->nullable();
+            $table->text('A');
+            $table->text('B');
+            $table->text('C');
+            $table->text('D');
+            $table->text('E')->nullable();
             $table->string('kunci');
              $table->timestamps();
         });

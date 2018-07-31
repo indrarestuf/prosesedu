@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Soal extends Model
 {
-     protected $fillable = ['level_id', 'pelajaran_id', 'pertanyaan', 'A', 'B', 'C', 'D', 'E', 'kunci'];
+    protected $fillable = ['level_id', 'pelajaran_id', 'pertanyaan', 'A', 'B', 'C', 'D', 'E', 'kunci'];
      
     public function level()
     {
@@ -18,13 +18,8 @@ class Soal extends Model
         return $this->belongsTo('App\Pelajaran');
     }
     
-     public function user()
-    {
-        return $this->belongsTo('App\user');
-    }
-    
       public function jawaban()
     {
-        return $this->hasOne('App\Jawaban');
+        return $this->belongsTo('App\Jawaban');
     }
 }

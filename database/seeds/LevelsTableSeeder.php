@@ -16,7 +16,10 @@ class LevelsTableSeeder extends Seeder
             'jenjang' => 'SMP',
             ]);
             DB::table('levels')->insert([
-            'jenjang' => 'SMA',
+            'jenjang' => 'SMA-IPA',
+            ]);
+            DB::table('levels')->insert([
+            'jenjang' => 'SMA-IPS',
             ]);
             DB::table('levels')->insert([
             'jenjang' => 'PTN',

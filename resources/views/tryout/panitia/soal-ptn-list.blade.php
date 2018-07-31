@@ -39,45 +39,27 @@ Anda akan menghapus soal Nomor {{$loop->iteration}}?
   </div>
 </div>
  <div class="row mb-3">
-  <div class="col-md-6">
-      <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">A</span>
-  </div>
-  <input type="text" aria-label="A" required name="A" disabled value="{{$soal->A}}" class="form-control">
-</div>
-
-<div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">B</span>
-  </div>
-  <input type="text" aria-label="B" required name="B" disabled value="{{$soal->B}}" class="form-control">
-</div>
-
-<div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">C</span>
-  </div>
-  <input type="text" aria-label="C" required name="C" disabled value="{{$soal->C}}" class="form-control">
-</div>
-
-  </div>
+    <div class="col-md-12">
   
-    <div class="col-md-6">
-      <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">D</span>
-  </div>
-  <input type="text" aria-label="D" required name="D" disabled value="{{$soal->D}}" class="form-control">
-</div>
-  
-        <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">E</span>
-  </div>
-  <input type="text" aria-label="E" name="E" placeholder="tidak perlu diisi, jika pilihan sampai D" disabled value="{{$soal->E}}" class="form-control">
-</div>
- 
+ <div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan A</h6>
+{!!$soal->A!!}
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan B</h6>
+{!!$soal->B!!}
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2d">Pilihan C</h6>
+{!!$soal->C!!}
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan D</h6>
+{!!$soal->D!!}
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class=" mb-2">Pilihan E (Jika ada)</h6>
+{!!$soal->E!!}
+</div></div>
   
         <div class="input-group mt-2">
   <div class="input-group-prepend">

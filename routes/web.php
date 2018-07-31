@@ -14,11 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+   Route::middleware(['auth', 'murid'])->group(function(){
 Route::get('/tryout/soal/buat', function () {
     return view('tryout.panitia.soal-buat');
 });
-
+Route::get('/tryout','SoalController@tryout')->name('tryout');
+Route::get('/tryout/nilai','SoalController@nilai')->name('nilai');
 Route::get('/tryout/soal','SoalController@index')->name('soallist');
 Route::get('/tryout/soal/buat','SoalController@buat')->name('soalbuat');
 Route::get('/json-pelajarans','SoalController@pelajarans');
@@ -30,15 +31,25 @@ Route::get('/tryout/soal/sma/{mapel}','SoalController@soalsma');
 Route::get('/tryout/soal/ptn/{mapel}','SoalController@soalptn');
 
 Route::get('/tryout/soal/edit/{id}','SoalController@edit')->name('soalperbarui');
-Route::post('/tryout/soal/update/{idi}','SoalController@update')->name('soalupdate');
+Route::post('/tryout/soal/update/{id}','SoalController@update')->name('soalupdate');
 
 Route::get('/tryout/smp/{mapel}','SoalController@tosmp');
 Route::get('/tryout/sma/{mapel}','SoalController@tosma');
 Route::get('/tryout/ptn/{mapel}','SoalController@toptn');
 
+Route::get('/tryout/smp/{mapel}/input','SoalController@inputtosmp')->name('inputtosmp');
 Route::get('/tryout/smp/{mapel}/hasil','SoalController@hasiltosmp')->name('hasiltosmp');
 
+Route::get('/tryout/sma/{mapel}/input','SoalController@inputtosma')->name('inputtosma');
+Route::get('/tryout/sma/{mapel}/hasil','SoalController@hasiltosma')->name('hasiltosma');
+
+Route::get('/tryout/ptn/{mapel}/input','SoalController@inputtoptn')->name('inputtoptn');
+Route::get('/tryout/ptn/{mapel}/hasil','SoalController@hasiltoptn')->name('hasiltoptn');
+
 Route::post('/jawab/{mapel}','SoalController@jawab')->name('jawab');
+
+});
+
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
@@ -59,7 +70,7 @@ Route::name('admin.')->group(function () {
 });
 
 Route::name('tutor.')->group(function () {
-    Route::group(['middleware'=>'tutor'], function(){
+       Route::middleware(['auth', 'tutor'])->group( function(){
         Route::get('/tutor/cari', 'TutorController@search')->name('cari');
         Route::get('/tutor/profile/edit', 'TutorController@profile')->name('profile');
         Route::post('/tutor/profile/update', 'TutorController@profileUpdate')->name('profileupdate');
@@ -71,13 +82,13 @@ Route::name('tutor.')->group(function () {
         Route::get('/tutor/review','TutorController@review')->name('review');
     });
     
-    Route::group(['middleware'=>'auth'], function(){
+Route::group(['middleware'=>'auth'], function(){
         Route::get('/tutor/{username}', 'TutorController@show')->name('profile');
     });
 });
 
 Route::name('murid.')->group(function () {
-    Route::group(['middleware'=>'murid'], function(){
+   Route::middleware(['auth', 'murid'])->group( function(){
         Route::get('/siswa/cari', 'MuridController@search')->name('cari');
         Route::get('/siswa/profile/edit', 'MuridController@profile')->name('profile');
         Route::post('/siswa/profile/update', 'MuridController@profileUpdate')->name('profileupdate');

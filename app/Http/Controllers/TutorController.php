@@ -71,6 +71,7 @@ class TutorController extends Controller
       public function show($username)
     {
         $user = User::whereUsername($username)->first();
+        $laporans = Laporan::where('murid_id' , $user->id)->orderBy('created_at' , 'desc')->simplePaginate(5);
         $komentars = Komentar::with('laporan')->orderBy('created_at' , 'desc')->get();
         $rate = Rate::with('user')->where('rateable_id', Auth::user()->id)->first();
         $sum = Rate::where('user_id', $user->id)->sum('point');

@@ -9,6 +9,8 @@ use App\Soal;
 use App\Level;
 use App\Pelajaran;
 use App\Jawaban;
+use App\Skor;
+use App\Info;
 
 use App\User;
 use Auth;
@@ -75,6 +77,23 @@ class SoalController extends Controller
       $soalptn =Soal::where('level_id', 3)->get();
       return view('tryout.panitia.soal-list', compact('soalsmp', 'soalsma', 'soalptn', 'pelajarans'));
     }
+    public function tryout(){
+    $user = Auth::user();
+    $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
+      $soalsmp =Soal::where('level_id', 1)->get();
+      $soalsma =Soal::where('level_id', 2)->get();
+      $soalptn =Soal::where('level_id', 3)->get();
+      return view('tryout.peserta.daftar-soal', compact('soalsmp', 'soalsma', 'soalptn', 'pelajarans','infomurid', 'user'));
+    }
+    
+    public function nilai(){
+    $user = Auth::user();
+    $infomurid= Info::with('user')->where('untuk', 'Siswa')->first();
+    $skors = Skor::with(['pelajaran:id,mapel', 'user'])
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+      return view('tryout.peserta.daftar-nilai', compact('skors','infomurid', 'user'));
+    }
     
     public function create(Request $request){
         $soal = new Soal;
@@ -101,24 +120,46 @@ class SoalController extends Controller
    public function tosmp($mapel, Request $request){
     $pelajaran = Pelajaran::where('level_id', 1)->whereMapel($mapel)->first();
     $soals = Soal::with('jawaban')->where('level_id', 1)->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->paginate(1);
+    $soal_id = $soals->pluck('id');
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('soal_id', $soal_id)
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id', Auth::user()->id)->get();
      if ($request->ajax()) {
-         $jawaban = Jawaban::with('user')->where('user_id', Auth::user()->id)->first();
-            return view('tryout.peserta.soal-smp-show', ['soals' => $soals])->render();  
+        return view('tryout.peserta.soal-smp-show', ['soals' => $soals, 'userjawabs'=> $userjawabs, 'pelajaran'=>$pelajaran])->render();  
         }
-    return view('tryout.peserta.soal-smp', compact('pelajaran' , 'soals', 'userjawab'));
+        
+    return view('tryout.peserta.soal-smp', compact('pelajaran' , 'soals', 'userjawabs'));
    }
    
-   public function tosma($mapel){
+   public function tosma($mapel, Request $request){
     $pelajaran = Pelajaran::where('level_id', 2)->whereMapel($mapel)->first();
-    $soals = Soal::with('pelajaran')->where('level_id', 2)->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->paginate(5);
-    $jawaban = Jawaban::where('user_id', Auth::user()->id)->get();
-    return view('tryout.peserta.soal-sma', compact('pelajaran' , 'soals'));
+    $soals = Soal::with('pelajaran')->where('level_id', 2)->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->paginate(1);
+    $soal_id = $soals->pluck('id');
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('soal_id', $soal_id)
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id', Auth::user()->id)->get();
+     if ($request->ajax()) {
+        return view('tryout.peserta.soal-sma-show', ['soals' => $soals, 'userjawabs'=> $userjawabs, 'pelajaran'=>$pelajaran])->render();  
+        }
+        
+    return view('tryout.peserta.soal-sma', compact('pelajaran' , 'soals', 'userjawabs'));
    }
 
-   public function toptn($mapel){
+   public function toptn($mapel, Request $request){
     $pelajaran = Pelajaran::whereMapel($mapel)->first();
-    $soals = Soal::with('pelajaran')->where('level_id', 3)->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->paginate(5);
-    return view('tryout.peserta.soal-ptn', compact('pelajaran' , 'soals'));
+    $soals = Soal::with('pelajaran')->where('level_id', 3)->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->paginate(1);
+   $soal_id = $soals->pluck('id');
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('soal_id', $soal_id)
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id', Auth::user()->id)->get();
+     if ($request->ajax()) {
+        return view('tryout.peserta.soal-ptn-show', ['soals' => $soals, 'userjawabs'=> $userjawabs, 'pelajaran'=>$pelajaran])->render();  
+        }
+        
+    return view('tryout.peserta.soal-ptn', compact('pelajaran' , 'soals', 'userjawabs'));
    }
    
    public function jawab($mapel,Request $request)
@@ -149,13 +190,17 @@ class SoalController extends Controller
         }
     }
     
-    public function hasiltosmp($mapel){
+    public function inputtosmp($mapel, Request $request){
     $pelajaran = Pelajaran::where('level_id', 1)->whereMapel($mapel)->first();
     $soals = Soal::with('jawaban')
     ->where('level_id', 1)
-    ->where('pelajaran_id' , $pelajaran->id)->orderBy('created_at' , 'desc')->get();
+    ->where('pelajaran_id' , $pelajaran->id)
+    ->orderBy('created_at' , 'desc')->get();
 
-    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])->where('mapel_id', $pelajaran->id)->where('user_id' , Auth::user()->id)->get();
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
     $benar=0;
     $salah = 0;
     foreach($userjawabs as $userjawab){
@@ -167,8 +212,134 @@ class SoalController extends Controller
         }
     }
     
-    $kosong = $soals->count() - $benar - $salah;
+    $kosong = $soals->count() - $userjawabs->count();
+   
+   $point = 100 * $benar/$soals->count();
+
+        $skor = new Skor;
+        $skor->point = $point;
+        $skor->kosong = $kosong;
+        $skor->salah = $salah;
+        $skor->benar = $benar;
+        $skor->pelajaran_id = $pelajaran->id;
+        $skor->user_id = Auth::user()->id;
+        $skor->save();
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->delete();
     
-    return view('tryout.peserta.soal-smp-hasil', compact( 'soals', 'userjawabs', 'benar' , 'salah' , 'kosong'));
+    return redirect()->route('hasiltosmp', $pelajaran->mapel);
+    }
+    
+    public function inputtosma($mapel, Request $request){
+    $pelajaran = Pelajaran::where('level_id', 2)->whereMapel($mapel)->first();
+    $soals = Soal::with('jawaban')
+    ->where('level_id', 2)
+    ->where('pelajaran_id' , $pelajaran->id)
+    ->orderBy('created_at' , 'desc')->get();
+
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+    $benar=0;
+    $salah = 0;
+    foreach($userjawabs as $userjawab){
+        if($userjawab->pilihan == $userjawab->soal->kunci){
+           $benar++ ;
+        }
+        if($userjawab->pilihan != $userjawab->soal->kunci){
+           $salah++ ;
+        }
+    }
+    
+    $kosong = $soals->count() - $userjawabs->count();
+   
+   $point = 100 * $benar/$soals->count();
+
+        $skor = new Skor;
+        $skor->point = $point;
+        $skor->kosong = $kosong;
+        $skor->salah = $salah;
+        $skor->benar = $benar;
+        $skor->pelajaran_id = $pelajaran->id;
+        $skor->user_id = Auth::user()->id;
+        $skor->save();
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->delete();
+    
+    return redirect()->route('hasiltosma', $pelajaran->mapel);
+    }
+    
+    public function inputtoptn($mapel, Request $request){
+    $pelajaran = Pelajaran::where('level_id', 3)->whereMapel($mapel)->first();
+    $soals = Soal::with('jawaban')
+    ->where('level_id', 3)
+    ->where('pelajaran_id' , $pelajaran->id)
+    ->orderBy('created_at' , 'desc')->get();
+
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+    $benar=0;
+    $salah = 0;
+    foreach($userjawabs as $userjawab){
+        if($userjawab->pilihan == $userjawab->soal->kunci){
+           $benar++ ;
+        }
+        if($userjawab->pilihan != $userjawab->soal->kunci){
+           $salah++ ;
+        }
+    }
+    
+    $kosong = $soals->count() - $userjawabs->count();
+   
+   $point = 100 * $benar/$soals->count();
+
+        $skor = new Skor;
+        $skor->point = $point;
+        $skor->kosong = $kosong;
+        $skor->salah = $salah;
+        $skor->benar = $benar;
+        $skor->pelajaran_id = $pelajaran->id;
+        $skor->user_id = Auth::user()->id;
+        $skor->save();
+    $userjawabs = Jawaban::with(['soal:id,kunci,pelajaran_id', 'user'])
+    ->where('mapel_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->delete();
+    
+    return redirect()->route('hasiltoptn', $pelajaran->mapel);
+    }
+    
+    public function hasiltosmp($mapel){
+    $pelajaran = Pelajaran::where('level_id', 1)->whereMapel($mapel)->first();
+    $skors = Skor::with(['pelajaran:id,mapel', 'user'])
+    ->where('pelajaran_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+    return view('tryout.peserta.soal-smp-hasil', compact('pelajaran' , 'skors'));;
+    }
+    
+     public function hasiltosma($mapel){
+    $pelajaran = Pelajaran::where('level_id', 2)->whereMapel($mapel)->first();
+    $skors = Skor::with(['pelajaran:id,mapel', 'user'])
+    ->where('pelajaran_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+    return view('tryout.peserta.soal-sma-hasil', compact('pelajaran' , 'skors'));;
+    }
+    
+     public function hasiltoptn($mapel){
+    $pelajaran = Pelajaran::where('level_id', 3)->whereMapel($mapel)->first();
+    $skors = Skor::with(['pelajaran:id,mapel', 'user'])
+    ->where('pelajaran_id', $pelajaran->id)
+    ->where('user_id' , Auth::user()->id)
+    ->get();
+    return view('tryout.peserta.soal-ptn-hasil', compact('pelajaran' , 'skors'));;
     }
 }

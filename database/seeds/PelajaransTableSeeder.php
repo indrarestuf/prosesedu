@@ -50,22 +50,43 @@ class PelajaransTableSeeder extends Seeder
             ]);
             
             DB::table('pelajarans')->insert([
-            'level_id' => 2 ,
-            'mapel'=> 'Biologi',
+            'level_id' => 3 ,
+            'mapel'=> 'Bahasa Indonesia',
+            ]);
+             DB::table('pelajarans')->insert([
+            'level_id' => 3 ,
+            'mapel'=> 'Bahasa Inggris',
+            ]);
+             DB::table('pelajarans')->insert([
+            'level_id' => 3 ,
+            'mapel'=> 'Matematika',
+            ]);
+             DB::table('pelajarans')->insert([
+            'level_id' => 3 ,
+            'mapel'=> 'Geografi',
+            ]);
+            DB::table('pelajarans')->insert([
+            'level_id' => 3 ,
+            'mapel'=> 'Sosiologi',
+            ]);
+            
+            DB::table('pelajarans')->insert([
+            'level_id' => 3 ,
+            'mapel'=> 'Ekonomi',
             ]);
             
            DB::table('pelajarans')->insert([
-            'level_id' => 3 ,
+            'level_id' => 4 ,
             'mapel'=> 'Saintek',
             ]);
             
             DB::table('pelajarans')->insert([
-            'level_id' => 3 ,
+            'level_id' => 4 ,
             'mapel'=> 'Soshum',
             ]);
             
             DB::table('pelajarans')->insert([
-            'level_id' => 3 ,
+            'level_id' => 4 ,
             'mapel'=> 'TKPA',
             ]);
     }

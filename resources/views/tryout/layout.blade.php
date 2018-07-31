@@ -199,13 +199,34 @@ body {
 </footer>   
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
-
-@if(Request::is('/tryout/soal/buat'))
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <script>
-CKEDITOR.replace( 'soal' );
+var toolbar_config_A = [
+		{ name: 'clipboard', items: [ 'Cut', 'Copy'] },
+		{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'] },
+		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+		{ name: 'insert', items: [ 'Image', 'mathjax',  'Table',  'Smiley', 'SpecialChar', 'mathjax'  ] },
+	];
+
+CKEDITOR.replace( 'soal');
+
+    CKEDITOR.inline( 'A',  {
+    toolbar: toolbar_config_A
+});
+    CKEDITOR.inline( 'B', {
+    toolbar: toolbar_config_A
+} );
+    CKEDITOR.inline( 'C', {
+    toolbar: toolbar_config_A
+} );
+    CKEDITOR.inline( 'D', {
+    toolbar: toolbar_config_A
+} );
+    CKEDITOR.inline( 'E' , {
+    toolbar: toolbar_config_A
+});
 </script>
-@endif
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script>
@@ -277,7 +298,8 @@ $(function() {
     }
 });
 </script>
-
+@auth
+@if (Request::is('tryout/smp/*') || Request::is('tryout/sma/*') || Request::is('tryout/ptn/*'))
 <script>
 /*global $*/
 	function jawab(soalId,elem) {
@@ -347,6 +369,7 @@ $(function() {
 
 });
 </script>
-
+@endif
+@endauth
 </body>
 </html>

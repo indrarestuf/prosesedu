@@ -12,4 +12,9 @@ class Level extends Model
     {
         return $this->hasMany('App\Soal');
     }
+    
+    public function pelajaran()
+    {
+        return $this->hasMany('App\Pelajaran');
+    }
 }

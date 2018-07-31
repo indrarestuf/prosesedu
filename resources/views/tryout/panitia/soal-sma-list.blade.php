@@ -39,45 +39,27 @@ Anda akan menghapus soal Nomor {{$loop->iteration}}?
   </div>
 </div>
  <div class="row mb-3">
-  <div class="col-md-6">
-      <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">A</span>
-  </div>
-  <input type="text" aria-label="A" required name="A" disabled value="{{$soal->A}}" class="form-control">
-</div>
-
-<div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">B</span>
-  </div>
-  <input type="text" aria-label="B" required name="B" disabled value="{{$soal->B}}" class="form-control">
-</div>
-
-<div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">C</span>
-  </div>
-  <input type="text" aria-label="C" required name="C" disabled value="{{$soal->C}}" class="form-control">
-</div>
-
-  </div>
+  <div class="col-md-12">
   
-    <div class="col-md-6">
-      <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">D</span>
-  </div>
-  <input type="text" aria-label="D" required name="D" disabled value="{{$soal->D}}" class="form-control">
-</div>
-  
-        <div class="input-group mt-2">
-  <div class="input-group-prepend">
-    <span class="input-group-text">E</span>
-  </div>
-  <input type="text" aria-label="E" name="E" placeholder="tidak perlu diisi, jika pilihan sampai D" disabled value="{{$soal->E}}" class="form-control">
-</div>
- 
+ <div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan A</h6>
+ <textarea type="text" id="A" aria-label="A" contenteditable="true" required name="A" class="form-control">{!!$soal->A!!}</textarea>
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan B</h6>
+ <textarea type="text" id="B" aria-label="B" contenteditable="true" required name="B" class="form-control">{!!$soal->B!!}</textarea>
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2d">Pilihan C</h6>
+ <textarea type="text" id="C" aria-label="C" contenteditable="true" required name="C" class="form-control">{!!$soal->C!!}</textarea>
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class="card-subtitle mb-2 ">Pilihan D</h6>
+ <textarea type="text" id="D" aria-label="D" contenteditable="true" required name="D" class="form-control">{!!$soal->D!!}</textarea>
+</div></div>
+
+<div class="card mb-2 p-0"><div class="card-body p-2 text-muted"><h6 class=" mb-2">Pilihan E (Jika ada)</h6>
+ <textarea type="text" id="E" aria-label="E" contenteditable="true" name="E" class="form-control">{!!$soal->E!!}</textarea>
+</div></div>
   
         <div class="input-group mt-2">
   <div class="input-group-prepend">
